@@ -1,0 +1,39 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Create an account
+{% endblock %}
+
+{% block content %}
+<div class="row signup__container">
+    <div class="col s12 m5 signup__image">
+        <h2>UrbanBeat</h2>
+        <h3>Welcome Back!</h3>
+        <p>To keep connected with us please login with your personal info</p>
+        <a class="btn btn-transparent" href="{% url 'signup' %}">Sign In</a>
+    </div>
+    <div class="col s12 m7 signup__form">
+        <div class="row">
+            <div class="col s10 offset-s1 m6 offset-m3 signup__form_container">
+                <h2>Create Account</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                     {% for field in form %}
+                         <div class="row">
+                            <div class="input-field s12">
+                                <label class="form__label" for="{{ field.auto_id }}">{{ field.label|upper }}</label>
+                                {{ field }}
+                                {% for error in field.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                         </div>
+                    {% endfor %}
+                    <button class="btn">Sign Up</button>
+                  </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
