@@ -24,3 +24,18 @@ class UserSignupForm(UserCreationForm):
             user.save()
         return user
 
+
+class UserSignInForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(),
+    )
+
+    username.widget.attrs.update({'placeholder': 'John Doe'})
+    password.widget.attrs.update({'placeholder': '8+ characters'})
+
+
+
+
+

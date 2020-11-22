@@ -1,17 +1,55 @@
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6">
-            <img style="width:100%" src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2015/03/mobile-security-laptop-fingerprint-730x442.jpg" alt="">
-        </div>
-        <div class="col-lg-6">
-            <form style="border: 1px solid grey; margin: 0% 0%; padding: 10% 5%" method="post">
-                <h2>Login</h2>
-                {% csrf_token %}
-                {{ form.as_p }}
-                    <button type="submit">Login</button>
-                    <br>
-                    <span>Do not have an account?<a style="color:orange" href="{% url 'signup' %}">Sign up here</a></span>
-            </form>
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Sign in to your account
+{% endblock %}
+
+{% block content %}
+<div class="row signin__container">
+    <div class="col s12 m7 signin__form">
+        <div class="row" style="height: 100%;">
+            <div class="col s10 offset-s1 m6 offset-m3 signin__form_container">
+                <h2 class="signin__logo">UrbanBeat</h2>
+                <div class="row valign-wrapper" style="height: 100%;">
+                    <div class="col s12">
+                        <h2>Sign In</h2>
+                        <form action="{% url 'signin' %}" method="POST">
+                            {% csrf_token %}
+
+                             <div class="row">
+                                <div class="input-field s12">
+                                    <label class="form__label" for="{{ form.username.auto_id }}">{{ form.username.label|upper }}</label>
+                                    {{ form.username }}
+                                    {% for error in form.username.errors %}
+                                        <p style="color: red">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                             </div>
+                            <div class="row">
+                                <div class="input-field s12 show-forgotten-password-container">
+                                    <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                                    <label class="form__label" for="{{ form.password.auto_id }}">{{ form.password.label|upper }}</label>
+                                    {{ form.password }}
+                                    {% for error in form.password.errors %}
+                                        <p style="color: red">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                             </div>
+                            <button class="btn">Sign In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+     <div class="col s12 m5 signin__image valign-wrapper">
+            <div class="row signin__content">
+                <div class="col s12">
+                    <h3>Hello, Friend!</h3>
+                    <p>Enter your personal details and start your journey with us.</p>
+                    <a class="btn btn-transparent" href="{% url 'signup' %}">Sign Up</a>
+                </div>
+            </div>
+        </div>
 </div>
+{% endblock %}
