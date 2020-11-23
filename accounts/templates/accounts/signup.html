@@ -10,22 +10,20 @@
         <h2>UrbanBeat</h2>
         <h3>Welcome Back!</h3>
         <p>To keep connected with us please login with your personal info</p>
-        <a class="btn btn-transparent" href="{% url 'signin' %}">Sign In</a>
+        <a class="btn btn-transparent" href="{% url 'accounts:signin' %}">Sign In</a>
     </div>
     <div class="col s12 m7 signup__form">
         <div class="row">
             <div class="col s10 offset-s1 m6 offset-m3 signup__form_container">
                 <h2>Create Account</h2>
-                <form method="POST">
+                <form method="POST" action="{% url 'accounts:signup' %}">
                     {% csrf_token %}
                      {% for field in form %}
                          <div class="row">
                             <div class="input-field s12">
                                 <label class="form__label" for="{{ field.auto_id }}">{{ field.label|upper }}</label>
                                 {{ field }}
-                                {% for error in field.errors %}
-                                    <p style="color: red">{{ error }}</p>
-                                {% endfor %}
+                                {% include 'shared/partials/form-field-error.html' %}
                             </div>
                          </div>
                     {% endfor %}

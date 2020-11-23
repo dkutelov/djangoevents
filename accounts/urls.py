@@ -1,6 +1,7 @@
 from django.urls import path, include
 from .views import SignUp, SignIn, UserDetail, redirect_user
 
+app_name = 'accounts'
 urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('profile/', redirect_user, name='profile'),

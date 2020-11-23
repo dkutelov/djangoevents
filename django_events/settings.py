@@ -129,3 +129,4 @@ USE_TZ = True
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (join(BASE_DIR, 'static'),)
+

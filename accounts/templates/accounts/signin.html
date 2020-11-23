@@ -13,29 +13,23 @@
                 <div class="row valign-wrapper" style="height: 100%;">
                     <div class="col s12">
                         <h2>Sign In</h2>
-                        <form action="{% url 'signin' %}" method="POST">
+                        {% include 'shared/partials/form-errors.html' %}
+                        <form action="{% url 'accounts:signin' %}" method="POST">
                             {% csrf_token %}
-
                              <div class="row">
                                 <div class="input-field s12">
                                     <label class="form__label" for="{{ form.username.auto_id }}">{{ form.username.label|upper }}</label>
                                     {{ form.username }}
-                                    {% for error in form.username.errors %}
-                                        <p style="color: red">{{ error }}</p>
-                                    {% endfor %}
                                 </div>
                              </div>
                             <div class="row">
                                 <div class="input-field s12 show-forgotten-password-container">
-                                    <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                                    <a href="{% url 'accounts:password_reset' %}" tabindex="4">Forgot your password?</a>
                                     <label class="form__label" for="{{ form.password.auto_id }}">{{ form.password.label|upper }}</label>
                                     {{ form.password }}
-                                    {% for error in form.password.errors %}
-                                        <p style="color: red">{{ error }}</p>
-                                    {% endfor %}
                                 </div>
                              </div>
-                            <button class="btn">Sign In</button>
+                            <button class="btn" tabindex="3">Sign In</button>
                         </form>
                     </div>
                 </div>
@@ -47,7 +41,7 @@
                 <div class="col s12">
                     <h3>Hello, Friend!</h3>
                     <p>Enter your personal details and start your journey with us.</p>
-                    <a class="btn btn-transparent" href="{% url 'signup' %}">Sign Up</a>
+                    <a tabindex="5" class="btn btn-transparent" href="{% url 'accounts:signup' %}">Sign Up</a>
                 </div>
             </div>
         </div>

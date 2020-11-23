@@ -1,8 +1,6 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView
 
 from accounts.models import Profile
@@ -10,8 +8,9 @@ from accounts.forms import UserSignupForm, UserSignInForm
 
 
 def redirect_user(request):
-    url = f'/events/'
-    return HttpResponseRedirect(url)
+    print(request.user)
+    url = f'/accounts/profile/{request.user.id}'
+    return redirect(url)
 
 
 class UserDetail(DetailView):
@@ -23,10 +22,17 @@ class UserDetail(DetailView):
 class SignUp(CreateView):
     model = User
     form_class = UserSignupForm
-    success_url = '/profile/'
     template_name = 'accounts/signup.html'
-    # if user:
-    #     return HttpResponseRedirect(f'/profile/{user.id}')
+
+    def post(self, request, *args, **kwargs):
+        form = UserSignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.set_password(user.password)
+            user.save()
+            login(request, user)
+            return redirect('accounts:profile')
+        return render(request, self.template_name, {'form': form})
 
 
 class SignIn(CreateView):
@@ -44,5 +50,6 @@ class SignIn(CreateView):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user:
-                return HttpResponseRedirect('/events')
+                login(request, user)
+                return redirect('/')
         return render(request, self.template_name, {'form': form})
