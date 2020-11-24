@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
+from accounts.models import Profile
+
+
 class UserSignupForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -43,4 +46,9 @@ class UserSignInForm(forms.Form):
             raise forms.ValidationError("Sorry, that login was invalid. Please try again.")
         return self.cleaned_data
 
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user', )
 

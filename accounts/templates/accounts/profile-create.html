@@ -1,0 +1,37 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Create your profile
+{% endblock %}
+
+{% block content %}
+<div class="profile__container">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="profile__container-inner">
+                <div class="row">
+                    <h2 class="logo-small"><a href="{% url 'events:home' %}">UrbanBeat</a></h2>
+                    <div class="col s10 offset-s1 m8 offset-m2">
+                        <h2 class="profile__table-title">Complete Your Profile</h2>
+                        {% include 'shared/partials/form-errors.html' %}
+                        <form action="{% url 'accounts:user-create-profile' pk=2 %}" method="POST">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div class="row">
+                                <div class="input-field s12">
+                                    <label class="form__label" for="{{ field.auto_id }}">{{ field.label|upper }}</label>
+                                    {{ field }}
+                                    {% include 'shared/partials/form-field-error.html' %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <button class="btn" tabindex="3">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

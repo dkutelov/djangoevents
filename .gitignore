@@ -10,3 +10,4 @@ bin
 common
 lib
 pyvenv.cfg
+.env

@@ -1,21 +1,47 @@
-<h1>Hello, {{user.username}}!</h1>
-<h1>Do you want to <a href="">edit</a> your profile?</h1>
-<h5>or...</h5>
+{% extends 'shared/base.html' %}
 
-<div class="row" style="margin-top:10%">
-    <div class="col-lg-6 text-center">
-        <img class="rounded-circle" src="https://www.dcu.ie/sites/default/files/iss/images/Icons_V2-01.png" alt="Generic placeholder image" width="140" height="140">
-        <h2>Change password</h2>
-        <p><a class="btn btn-secondary" href="{% url 'password_change' %}" role="button">View details &raquo;</a></p>
-    </div><!-- /.col-lg-6 -->
-    <div class="col-lg-6 text-center">
-        <img class="rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnhLedyw4Kh3wkzJD0ytWGHTQF01pqJ0N5l8CO9n4MmZoxF71rmQ" alt="Generic placeholder image" width="140" height="140">
-        <h2>Reset password</h2>
-        <p><a class="btn btn-secondary" href="{% url 'password_reset' %}" role="button">View details &raquo;</a></p>
-    </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-<div class="row">
-    <div class="col-lg-12 text-center">
-        <h3><a href="{% url 'logout' %}">Logout</a></h3>
+{%  block site_title %}
+    Profile
+{% endblock %}
+
+{% block content %}
+<div class="row signin__container">
+    <div class="col s12 m7 signin__form">
+        <div class="row" style="height: 100%;">
+            <div class="col s10 offset-s1 m6 offset-m3 signin__form_container">
+                <h2 class="signin__logo">
+                    <a href="{% url 'events:home' %}">UrbanBeat</a></h2>
+                <div class="row valign-wrapper" style="height: 100%;">
+                    <div class="col s12">
+                        <h2>Sign In</h2>
+                        {% include 'shared/partials/form-errors.html' %}
+                        <form action="{% url 'accounts:signin' %}" method="POST">
+                            {% csrf_token %}
+                             {% for field in form %}
+                             <div class="row">
+                                <div class="input-field s12">
+                                    <label class="form__label" for="{{ field.auto_id }}">{{ field.label|upper }}</label>
+                                    {{ field }}
+                                    {% include 'shared/partials/form-field-error.html' %}
+                                </div>
+                             </div>
+                            {% endfor %}
+                            <button class="btn" tabindex="3">Sign In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+     <div class="col s12 m5 signin__image valign-wrapper">
+            <div class="row signin__content">
+                <div class="col s12">
+                    <h3>Hello, Friend!</h3>
+                    <p>Enter your personal details and start your journey with us.</p>
+                    <a tabindex="5" class="btn btn-transparent" href="{% url 'accounts:signup' %}">Sign Up</a>
+                </div>
+            </div>
+        </div>
 </div>
+{% endblock %}
+

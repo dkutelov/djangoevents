@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView
 
 from accounts.models import Profile
-from accounts.forms import UserSignupForm, UserSignInForm
+from accounts.forms import UserSignupForm, UserSignInForm, UserProfileForm
 
 
 def redirect_user(request):
@@ -51,5 +51,11 @@ class SignIn(CreateView):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                return redirect('/')
+                return redirect('events:home')
         return render(request, self.template_name, {'form': form})
+
+
+class UserCreateProfile(CreateView):
+    model = User
+    form_class = UserProfileForm
+    template_name = 'accounts/profile-create.html'
