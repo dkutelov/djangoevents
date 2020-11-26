@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from cloudinary.forms import CloudinaryFileField
 
 from accounts.models import Profile
 
@@ -48,7 +49,23 @@ class UserSignInForm(forms.Form):
 
 
 class UserProfileForm(forms.ModelForm):
+    userPhotoURL = CloudinaryFileField(
+        options={
+            'crop': 'thumb',
+            'width': 400,
+            'height': 400,
+            'folder': 'events/user-photos'
+        }
+    )
+
     class Meta:
         model = Profile
         exclude = ('user', )
+        labels = {
+            'userPhotoURL': 'Upload you photo',
+            'about': 'Introduce yourself to potential friends',
+            'city': 'Your city'
+        }
+
+
 

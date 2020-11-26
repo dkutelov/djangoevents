@@ -9,10 +9,16 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import os
+
 from os.path import join
 from pathlib import Path
 import cloudinary
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v9$v+-f)i)2&%p+vw)qa2b(p)rdaa0k1aj=8+!%gzxh&z%uod*'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -112,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Cloudinary config
 cloudinary.config(
-  cloud_name=os.environ.get('CLOUD_NAME'),
-  api_key=os.environ.get('API_KEY'),
-  api_secret=os.environ.get('API_SECRET'),
+  cloud_name=env('CLOUD_NAME'),
+  api_key=env('API_KEY'),
+  api_secret=env('API_SECRET'),
   secure=True
 )
 # Internationalization

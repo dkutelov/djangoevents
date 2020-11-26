@@ -1,10 +1,11 @@
 {% extends 'shared/base.html' %}
 
 {%  block site_title %}
-    Create your profile
+    Create new great event
 {% endblock %}
 
 {% block content %}
+{% include 'shared/partials/header-dark.html' %}
 <div class="profile__container">
     <div class="row">
         <div class="col s12 m6 offset-m3">
@@ -34,4 +35,5 @@
     </div>
 </div>
 {% endblock %}
-
+{% load static %}
+{% block page_scripts %} <script src="{% static 'js/header-dark.js'%}"></script>{% endblock %}

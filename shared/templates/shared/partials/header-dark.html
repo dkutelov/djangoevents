@@ -1,0 +1,27 @@
+<!-- Dropdown Structure -->
+
+    <ul id="dropdown-profile" class="dropdown-content">
+      <li><a href="{% url 'accounts:user-edit-profile' %}">My profile</a></li>
+      <li class="divider"></li>
+        <li><a href="{% url 'accounts:logout' %}">Sign out</a></li>
+    </ul>
+
+    <nav>
+        <div class="container">
+      <div class="nav-wrapper">
+        <a href="{% url 'events:home' %}" class="brand-logo">UrbanBeat</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'events:event create' %}">Create Event</a></li>
+          <!-- Dropdown Trigger -->
+          <li>
+              <a class="dropdown-trigger" href="#!" data-target="dropdown-profile">
+                  <img src="{{ profile.userPhotoURL.url }}"
+                       class="circle responsive-img" alt="user photo"
+                       width="45px" height="45px" style="margin-top: 0.5rem;">
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+          </li>
+        </ul>
+      </div>
+            </div>
+    </nav>

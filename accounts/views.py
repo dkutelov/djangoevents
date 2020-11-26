@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView
 
 from accounts.models import Profile
@@ -31,7 +32,7 @@ class SignUp(CreateView):
             user.set_password(user.password)
             user.save()
             login(request, user)
-            return redirect('accounts:profile')
+            return redirect('accounts:user-create-profile')
         return render(request, self.template_name, {'form': form})
 
 
@@ -55,7 +56,38 @@ class SignIn(CreateView):
         return render(request, self.template_name, {'form': form})
 
 
-class UserCreateProfile(CreateView):
-    model = User
-    form_class = UserProfileForm
-    template_name = 'accounts/profile-create.html'
+# class UserCreateProfile(CreateView):
+#     model = User
+#     form_class = UserProfileForm
+#     template_name = 'accounts/profile-create.html'
+
+
+@login_required
+def user_create_profile(request):
+    user = request.user
+    # instance = get_object_or_404(UserProfile, user=user)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+            return redirect('accounts:user-edit-profile')
+    form = UserProfileForm()
+    return render(request, 'accounts/profile-create.html', {'form': form})
+
+
+# TODO create template
+@login_required
+def user_edit_profile(request):
+    user = request.user
+    instance = get_object_or_404(Profile, user=user)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+            return redirect('/profile/edit')  # profile edit page
+    form = UserProfileForm()
+    return render(request, 'accounts/profile-create.html', {'form': form})
