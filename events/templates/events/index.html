@@ -11,20 +11,35 @@
 {% include 'events/partials/search-box.html' with event=event %}
 
 <section class="events__container">
-    <div class="col s12">
+    <div class="events__heading">
         <h2>Upcoming Events</h2>
-    </div>
-     <form method="get" action="{% url 'events:home' %}">
-            {{ filter_form }}
+        <div>
+            <form method="get" action="{% url 'events:home' %}">
             {% csrf_token %}
-            <button>Filter</button>
-    </form>
+                <div class="events__filter-form">
+                    {{ filter_form }}
+                    <button class="btn btn-lite">Sort</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
      <div>
         {% for event in events %}
             <div class="events__card-outer">
+                <a href="{% url 'events:event detail' event.id %}">
                  {% include 'events/partials/event-listing-card.html' with event=event %}
+                </a>
             </div>
         {% endfor %}
+    </div>
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a class="btn btn-lite"  href="?page={{ page_obj.previous_page_number }}">Prev</a>
+        {% endif %}
+         {% if page_obj.has_next %}
+             <a class="btn btn-lite" href="?page={{ page_obj.next_page_number }}">Next</a>
+         {% endif %}
     </div>
 </section>
 {% endblock %}

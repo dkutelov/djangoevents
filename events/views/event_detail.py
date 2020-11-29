@@ -1,2 +1,2 @@
-def event_detail(request, event_id):
+def event_detail(request, pk):
     pass
