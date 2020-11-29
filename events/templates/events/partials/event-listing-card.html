@@ -1,0 +1,25 @@
+<div class="events__card-inner">
+    <div class="events__card-image" style="background-image: url('{{event.event_photo.url}}')">
+    </div>
+    {% if not event.ticket_price == 0 %}
+        <span class="events__price">€{{ event.ticket_price }}</span>
+    {% else %}
+        <span class="events__price">Free</span>
+    {% endif %}
+     <div class="events__likes">
+         <i class="large material-icons">favorite</i>
+         <span>{{ event.like_set.count }}</span>
+     </div>
+    <div class="events__card-content">
+        <div class="events__card-date">
+            <p class="date-month">{{ event.date|date:'M' | upper  }}</p>
+            <p class="date-day">{{ event.date|date:'d' | upper  }}</p>
+        </div>
+        <div class="events__card_text">
+            <h4>{{ event.name }}</h4>
+            <p>{{ event.description|lower|capfirst|truncatechars:50  }}</p>
+        </div>
+
+    </div>
+  </div>
+

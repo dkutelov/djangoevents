@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -9,6 +10,7 @@ from events.enums import EventTypesEnum
 class Event(models.Model):
     name = models.CharField(max_length=200, unique=True, blank=False)
     description = models.TextField(max_length=500, blank=True)
+    event_photo = CloudinaryField('image')
     date = models.DateTimeField(blank=False)
     type = models.CharField(max_length=100,
                             choices=((event_type.name, event_type.value) for event_type in EventTypesEnum),
@@ -21,13 +23,11 @@ class Event(models.Model):
     hosted_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
     interested = models.ManyToManyField(Profile, related_name='interested')
     going = models.ManyToManyField(Profile, related_name='going')
-    likes = models.ManyToManyField(Profile, related_name='like')
 
     def __str__(self):
         return f'{self.name} - {self.date} - {self.get_type_display()}'
 
 
-class EventPhoto(models.Model):
-    photoURL = models.URLField(blank=False)
-    event = models.ForeignKey(Profile, on_delete=models.CASCADE)
-
+class Like(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)

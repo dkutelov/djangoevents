@@ -1,0 +1,11 @@
+<div class="search__container">
+    <form method="get" action="{% url 'events:home' %}">
+        {% csrf_token %}
+        <div class="search__form">
+            <div class="search__form-elements">
+                {{ search_form }}
+            </div>
+            <button><i class="material-icons">search</i></button>
+        </div>
+    </form>
+</div>

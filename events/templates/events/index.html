@@ -1,0 +1,30 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Events home page
+{% endblock %}
+
+
+{% block content %}
+{% include 'shared/partials/header.html' %}
+{% include 'events/partials/main-banner.html' %}
+{% include 'events/partials/search-box.html' with event=event %}
+
+<section class="events__container">
+    <div class="col s12">
+        <h2>Upcoming Events</h2>
+    </div>
+     <form method="get" action="{% url 'events:home' %}">
+            {{ filter_form }}
+            {% csrf_token %}
+            <button>Filter</button>
+    </form>
+     <div>
+        {% for event in events %}
+            <div class="events__card-outer">
+                 {% include 'events/partials/event-listing-card.html' with event=event %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
