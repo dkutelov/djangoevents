@@ -144,3 +144,5 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (join(BASE_DIR, 'static'),)
 
+LOGOUT_REDIRECT_URL = '/'
+

@@ -1,0 +1,59 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Events detail page
+{% endblock %}
+
+
+{% block content %}
+{% include 'shared/partials/header.html' with bg_white=True%}
+
+<section class="event__container container">
+    <div class="event__image-container"
+         style="background-image: url('{{ event.event_photo.url }}')">
+    </div>
+    <h2>{{ event.name }} in</h2>
+    <h3>{{ event.city }}</h3>
+    <p>by {{event.hosted_by.user.username }}</p>
+
+    <div class="event__engagement">
+        {% if not is_host %}
+            <div>
+                {% if liked %}
+                    <a href="{% url 'events:event like' event.id %}" class="btn">Liked</a>
+                {% else %}
+                    <a href="{% url 'events:event like' event.id %}" class="btn">Like</a>
+                {% endif %}
+                <p>Liked: {{ event.like_set.count }}</p>
+            </div>
+             <div>
+                {% if interested %}
+                    <a href="{% url 'events:event interest' event.id %}" class="btn">Already interested</a>
+                {% else %}
+                    <a href="{% url 'events:event interest' event.id %}" class="btn">I am interested</a>
+                {% endif %}
+                <p>Interested: {{ event.interested_set.count }}</p>
+            </div>
+             <div>
+                {% if going %}
+                    <a href="{% url 'events:event going' event.id %}" class="btn">Going</a>
+                {% else %}
+                    <a href="{% url 'events:event going' event.id %}" class="btn">I want to go</a>
+                {% endif %}
+                <p>Going: {{ event.going_set.count }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+        {% if is_host or user.is_superuser %}
+            <div class="event__modify">
+                <a href="#" class="btn">Edit event</a>
+                <a href="#" class="btn">Delete event</a>
+            </div>
+         {% endif %}
+    {% endif %}
+</section>
+{% endblock %}
+{% load static %}
+{% block page_scripts %} <script src="{% static 'js/header.js'%}"></script>{% endblock %}
