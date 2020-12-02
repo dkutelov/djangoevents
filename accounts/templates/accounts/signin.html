@@ -17,7 +17,8 @@
                         {% include 'shared/partials/form-errors.html' %}
                         <form action="{% url 'accounts:signin' %}" method="POST">
                             {% csrf_token %}
-                             <div class="row">
+                            <input type="hidden" name="return_url" value="{{ request.GET.next }}"/>
+                            <div class="row">
                                 <div class="input-field s12">
                                     <label class="form__label" for="{{ form.username.auto_id }}">{{ form.username.label|upper }}</label>
                                     {{ form.username }}

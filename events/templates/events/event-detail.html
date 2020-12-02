@@ -8,51 +8,65 @@
 {% block content %}
 {% include 'shared/partials/header.html' with bg_white=True%}
 
-<section class="event__container container">
-    <div class="event__image-container"
-         style="background-image: url('{{ event.event_photo.url }}')">
-    </div>
-    <h2>{{ event.name }} in</h2>
-    <h3>{{ event.city }}</h3>
-    <p>by {{event.hosted_by.user.username }}</p>
+<section class="event__container">
+    <div class="container">
+        <div class="event__image-container"
+             style="background-image: url('{{ event.event_photo.url }}')">
+        </div>
+        <a href="{% url 'events:home' %}"><i class="material-icons">arrow_back</i>Back</a>
+        <h2>{{ event.name }} in</h2>
+        <h3>{{ event.city }}</h3>
+        <p>by {{event.hosted_by.username }}</p>
 
-    <div class="event__engagement">
-        {% if not is_host %}
-            <div>
-                {% if liked %}
-                    <a href="{% url 'events:event like' event.id %}" class="btn">Liked</a>
-                {% else %}
-                    <a href="{% url 'events:event like' event.id %}" class="btn">Like</a>
-                {% endif %}
-                <p>Liked: {{ event.like_set.count }}</p>
-            </div>
-             <div>
-                {% if interested %}
-                    <a href="{% url 'events:event interest' event.id %}" class="btn">Already interested</a>
-                {% else %}
-                    <a href="{% url 'events:event interest' event.id %}" class="btn">I am interested</a>
-                {% endif %}
-                <p>Interested: {{ event.interested_set.count }}</p>
-            </div>
-             <div>
-                {% if going %}
-                    <a href="{% url 'events:event going' event.id %}" class="btn">Going</a>
-                {% else %}
-                    <a href="{% url 'events:event going' event.id %}" class="btn">I want to go</a>
-                {% endif %}
-                <p>Going: {{ event.going_set.count }}</p>
-            </div>
+        <div class="event__engagement{% if not is_authenticated %} show-sing-in-notification{% endif %}">
+            {% if not is_host %}
+                {% include 'events/partials/event-like.html' with event=event liked=liked %}
+                {% include 'events/partials/event-interested.html' with event=event interested=interested %}
+                {% include 'events/partials/event-going.html' with event=event going=going %}
+            {% endif %}
+            <span class="event__sign-in-message">Click to sign in!</span>
+        </div>
+
+        {% if user.is_authenticated %}
+            {% if is_host or user.is_superuser %}
+                <div class="event__modify">
+                    <a href="#" class="btn">Edit event</a>
+                    <a href="#" class="btn">Delete event</a>
+                </div>
+             {% endif %}
         {% endif %}
     </div>
-
-    {% if user.is_authenticated %}
-        {% if is_host or user.is_superuser %}
-            <div class="event__modify">
-                <a href="#" class="btn">Edit event</a>
-                <a href="#" class="btn">Delete event</a>
-            </div>
-         {% endif %}
-    {% endif %}
+</section>
+<section>
+    <div class="comments__container">
+        <h4>Comments</h4>
+        <div class="comments__inner-container">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="box">
+                        <a href="#">{{ event.user.username }}</a>
+                        <h5><em>{{ comment.text }}</em></h5>
+                        <hr>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="box">
+                    <p>There are no comments for this event.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="comments__create-new">
+            {% if not is_host %}
+                <div class="box">
+                    <form method="post" action="{% url 'events:event comment' event.pk %}">
+                        {{ comment_form }}
+                        {% csrf_token %}
+                        <button class="btn btn-primary mt-2" type="submit">Add</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </section>
 {% endblock %}
 {% load static %}

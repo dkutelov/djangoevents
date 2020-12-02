@@ -1,0 +1,13 @@
+<div>
+    {% if liked %}
+        <a href="{% url 'events:event like' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
+            <i class="material-icons">favorite</i>
+            <span>{{ event.like_set.count }} liked</span>
+        </a>
+    {% else %}
+        <a href="{% url 'events:event like' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
+            <i class="material-icons">favorite_border</i>
+            <span>{{ event.like_set.count }} liked</span>
+        </a>
+    {% endif %}
+</div>

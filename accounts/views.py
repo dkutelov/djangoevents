@@ -40,6 +40,11 @@ class SignIn(CreateView):
     model = User
     template_name = 'accounts/signin.html'
 
+    @staticmethod
+    def get_redirect_url(params):
+        redirect_url = params.get('return_url')
+        return redirect_url if redirect_url else 'events:home'
+
     def get(self, request, *args, **kwargs):
         form = UserSignInForm()
         return render(request, self.template_name, {'form': form})
@@ -52,7 +57,9 @@ class SignIn(CreateView):
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
-                return redirect('events:home')
+                redirect_url = self.get_redirect_url(request.POST)
+                return redirect(redirect_url)
+                # return redirect('events:home')
         return render(request, self.template_name, {'form': form})
 
 

@@ -1,0 +1,13 @@
+ <div>
+    {% if going %}
+        <a href="{% url 'events:event going' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
+            <i class="material-icons">check_circle</i>
+            <span>{{ event.going_set.count }} going</span>
+        </a>
+    {% else %}
+        <a href="{% url 'events:event going' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
+            <i class="material-icons">help_outline</i>
+            <span>{{ event.going_set.count }} going</span>
+        </a>
+    {% endif %}
+</div>

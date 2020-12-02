@@ -145,4 +145,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (join(BASE_DIR, 'static'),)
 
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/signin/'
 

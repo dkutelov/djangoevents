@@ -1,5 +1,7 @@
 from django.views.generic import DetailView
 
+from comments.models import Comment
+from events.forms.comment_form import CommentForm
 from events.models import Event
 
 
@@ -27,4 +29,6 @@ class EventDetail(DetailView):
         context['liked'] = self.liked
         context['interested'] = self.interested
         context['going'] = self.going
+        context['comments'] = Comment.objects.all().filter(event=self.get_object())
+        context['comment_form'] = CommentForm()
         return context
