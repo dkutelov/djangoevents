@@ -13,6 +13,6 @@ urlpatterns = [
     path('event/<int:pk>/like', EventLike.as_view(), name='event like'),
     path('event/<int:pk>/interested', EventInterest.as_view(), name='event interest'),
     path('event/<int:pk>/going', EventGo.as_view(), name='event going'),
-    path('event/<int:pk>/comment', EventComment.as_view(), name='event comment'),
+    path('event/<int:pk>/comment/<int:parent_id>', EventComment.as_view(), name='event comment'),
     path('event/create/', event_create, name='event create'),
 ]

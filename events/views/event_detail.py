@@ -15,8 +15,7 @@ class EventDetail(DetailView):
     going = False
 
     def dispatch(self, request, *args, **kwargs):
-        event_id = self.kwargs['pk']
-        event = Event.objects.get(pk=event_id)
+        event = self.get_object()
         self.is_host = self.request.user.id == event.hosted_by.id
         self.liked = event.like_set.filter(user_id=request.user.id).exists()
         self.interested = event.interested_set.filter(user_id=request.user.id).exists()
@@ -29,6 +28,6 @@ class EventDetail(DetailView):
         context['liked'] = self.liked
         context['interested'] = self.interested
         context['going'] = self.going
-        context['comments'] = Comment.objects.all().filter(event=self.get_object())
+        context['comments'] = Comment.objects.all().filter(event=self.get_object(), parent__isnull=True)
         context['comment_form'] = CommentForm()
         return context

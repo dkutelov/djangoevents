@@ -43,31 +43,49 @@
         <div class="comments__inner-container">
             {% if comments %}
                 {% for comment in comments %}
-                    <div class="box">
-                        <a href="#">{{ event.user.username }}</a>
-                        <h5><em>{{ comment.text }}</em></h5>
-                        <hr>
+                    <div class="comments__comment_container">
+                        <a href="{% url 'accounts:user-profile' user.id %}"
+                           class="profile-photo-round"
+                           style="background-image: url('{{ user.profile.userPhotoURL.url }}')">
+                        </a>
+                        <div class="comments__comment-text">
+                            <h5>{{ comment.user.username }}</h5>
+                            <p>{{ comment.text }}</p>
+                            <span id="comment-reply" data-comment_id="{{ comment.id }}" class="comment__reply">Reply</span>
+                        </div>
                     </div>
+                    <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
+                        <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=comment.id %}">
+                            {{ comment_form }}
+                            {% csrf_token %}
+                            <button class="btn btn-primary mt-2" type="submit">Add</button>
+                        </form>
+                    </div>
+                    {% for reply in comment.replies.all %}
+                        <p>{{ reply.text }}</p>
+                    {% endfor %}
                 {% endfor %}
             {% else %}
-                <div class="box">
-                    <p>There are no comments for this event.</p>
-                </div>
+               <p>There are no comments for this event.</p>
             {% endif %}
         </div>
+        {% if not is_host %}
         <div class="comments__create-new">
-            {% if not is_host %}
-                <div class="box">
-                    <form method="post" action="{% url 'events:event comment' event.pk %}">
-                        {{ comment_form }}
-                        {% csrf_token %}
-                        <button class="btn btn-primary mt-2" type="submit">Add</button>
-                    </form>
-                </div>
-            {% endif %}
-        </div>
+             <h4>Add new comment</h4>
+            <div>
+                <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=0%}">
+                    {{ comment_form }}
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-2" type="submit">Add</button>
+                </form>
+            </div>
+         </div>
+         {% endif %}
     </div>
 </section>
 {% endblock %}
 {% load static %}
-{% block page_scripts %} <script src="{% static 'js/header.js'%}"></script>{% endblock %}
+{% block page_scripts %}
+    <script src="{% static 'js/header.js'%}"></script>
+    <script src="{% static 'js/comment.js'%}"></script>
+{% endblock %}
