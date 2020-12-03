@@ -79,7 +79,7 @@ def user_create_profile(request):
             profile = form.save(commit=False)
             profile.user = user
             profile.save()
-            return redirect('accounts:user-edit-profile')
+            return redirect(f'/accounts/profile/{user.id}')
     form = UserProfileForm()
     return render(request, 'accounts/profile-create.html', {'form': form})
 
@@ -98,3 +98,9 @@ def user_edit_profile(request):
             return redirect('/profile/edit')  # profile edit page
     form = UserProfileForm()
     return render(request, 'accounts/profile-create.html', {'form': form})
+
+
+class ProfileDetail(DetailView):
+    model = User
+    template_name = 'accounts/profile.html'
+    context_object_name = 'user'

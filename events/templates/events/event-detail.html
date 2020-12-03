@@ -9,16 +9,16 @@
 {% include 'shared/partials/header.html' with bg_white=True%}
 
 <section class="event__container">
-    <div class="container">
-        <div class="event__image-container"
-             style="background-image: url('{{ event.event_photo.url }}')">
+    <div class="event__image-container"
+         style="background-image: url('{{ event.event_photo.url }}')">
+        <div class="event__image-content">
+            <a href="{% url 'events:home' %}"><i class="material-icons">arrow_back</i>Back</a>
+            <h2>{{ event.name }} in {{ event.city }}</h2>
+            <p>by {{event.hosted_by.username }}</p>
         </div>
-        <a href="{% url 'events:home' %}"><i class="material-icons">arrow_back</i>Back</a>
-        <h2>{{ event.name }} in</h2>
-        <h3>{{ event.city }}</h3>
-        <p>by {{event.hosted_by.username }}</p>
-
-        <div class="event__engagement{% if not is_authenticated %} show-sing-in-notification{% endif %}">
+    </div>
+    <div class="event__content-container">
+        <div class="event__engagement{% if not user.is_authenticated %} show-sing-in-notification{% endif %}">
             {% if not is_host %}
                 {% include 'events/partials/event-like.html' with event=event liked=liked %}
                 {% include 'events/partials/event-interested.html' with event=event interested=interested %}
@@ -26,6 +26,22 @@
             {% endif %}
             <span class="event__sign-in-message">Click to sign in!</span>
         </div>
+
+        <div class="row event-info">
+            <div class="col s12 m8 event-info__left-content">
+                <h4>Description</h4>
+                <p>{{ event.description }}</p>
+
+                 <h4>Time</h4>
+                 <p>Date: {{ event.date|date:'d-M-yy' }}</p>
+                 <p>Time: {{ event.date|date:'h-m' }}</p>
+            </div>
+            <div class="col s12 m4 event-info__right-content">
+                <h4>Event Location</h4>
+                <div style="width: 100%; height:200px;background-color: #5a5a5a;">MAP</div>
+            </div>
+        </div>
+
 
         {% if user.is_authenticated %}
             {% if is_host or user.is_superuser %}
@@ -37,70 +53,7 @@
         {% endif %}
     </div>
 </section>
-<section>
-    <div class="comments__container">
-        <h4>Comments</h4>
-        <div class="comments__inner-container">
-            {% if comments %}
-                {% for comment in comments %}
-                    <div class="comment__container">
-                        <a href="{% url 'accounts:user-profile' user.id %}">
-                            <i class="profile-photo-round"
-                               style="background-image: url('{{ comment.user.profile.userPhotoURL.url }}')"></i>
-                        </a>
-                        <div class="comment__text">
-                            <h5>{{ comment.user.username }}</h5>
-                            <p>{{ comment.text }}</p>
-                            <span id="comment-reply" data-comment_id="{{ comment.id }}"
-                                  class="comment__reply">Reply</span>
-                        </div>
-                    </div>
-                     {% for reply in comment.replies.all %}
-                        <div class="comment__reply-container">
-                            <a href="{% url 'accounts:user-profile' user.id %}">
-                                <i class="profile-photo-round" style="background-image:
-                                        url('{{ reply.user.profile.userPhotoURL.url }}')"></i>
-                            </a>
-                            <div class="comment__reply-text">
-                                <h5>{{ reply.user.username }}</h5>
-                                <p>{{ reply.text }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
-                         <div class="comment__reply-form-inner">
-                             <a href="{% url 'accounts:user-profile' user.id %}">
-                                <i class="profile-photo-round"
-                                   style="background-image: url('{{ comment.user.profile.userPhotoURL.url }}')"></i>
-                            </a>
-                            <div class="comment__reply-text">
-                                <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=comment.id %}">
-                                    {{ comment_form }}
-                                    {% csrf_token %}
-                                    <button class="btn btn-primary mt-2" type="submit">Add</button>
-                                </form>
-                            </div>
-                         </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-               <p>There are no comments for this event.</p>
-            {% endif %}
-        </div>
-        {% if not is_host %}
-        <div class="comments__create-new">
-             <h4>Add new comment</h4>
-            <div>
-                <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=0%}">
-                    {{ comment_form }}
-                    {% csrf_token %}
-                    <button class="btn btn-primary mt-2" type="submit">Add</button>
-                </form>
-            </div>
-         </div>
-         {% endif %}
-    </div>
-</section>
+{% include 'comments/comments.html' with event=event user=user %}
 {% endblock %}
 {% load static %}
 {% block page_scripts %}

@@ -10,7 +10,12 @@
                 </ul>
                 <a class="dropdown-trigger header__profile " href="#" data-target="dropdown-profile">
                     <div class="profile-photo">
-                         <img src="{{ user.profile.userPhotoURL.url }}" alt="user photo">
+                         {% if user.profile.userPhotoURL %}
+                             <img src="{{ user.profile.userPhotoURL.url }}" alt="user photo">
+                        {% else %}
+                             {% load static %}
+                             <img src="{% static 'assets/icons/user-default.jpg' %}" alt="user photo default">
+                        {% endif %}
                     </div>
                     <span>{{ user.username }}</span>
                     <i class="material-icons header__arrow">arrow_drop_down</i>

@@ -1,0 +1,63 @@
+<section>
+    <div class="comments__container">
+        <h4>Comments</h4>
+        <div class="comments__inner-container">
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="comment__container">
+                        <a href="{% url 'accounts:user-profile' comment.user.id %}">
+                            {% include 'comments/partials/avatar.html' with profile=comment.user.profile %}
+                        </a>
+                        <div class="comment__text">
+                            <h5>{{ comment.user.username }}</h5>
+                            <p>{{ comment.text }}</p>
+                            <span class="comment__date">{{ comment.created_at|date:'d-M-y h:m' }}</span>
+                            <span id="comment-reply" data-comment_id="{{ comment.id }}"
+                                  class="comment__reply">Reply</span>
+                        </div>
+                    </div>
+                     {% for reply in comment.replies.all %}
+                        <div class="comment__reply-container">
+                            <a href="{% url 'accounts:user-profile' reply.user.id %}">
+                                {% include 'comments/partials/avatar.html' with profile=reply.user.profile %}
+                            </a>
+                            <div class="comment__reply-text">
+                                <h5>{{ reply.user.username }}</h5>
+                                <p>{{ reply.text }}</p>
+                                <span class="comment__date">{{ reply.created_at|date:'d-M-y h:m' }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
+                         <div class="comment__reply-form-inner">
+                             <a href="{% url 'accounts:user-profile' user.id %}">
+                               {% include 'comments/partials/avatar.html' with profile=user.profile %}
+                            </a>
+                            <div class="comment__reply-text">
+                                <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=comment.id %}">
+                                    {{ comment_form }}
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary mt-2" type="submit">Add</button>
+                                </form>
+                            </div>
+                         </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+               <p>There are no comments for this event.</p>
+            {% endif %}
+        </div>
+        {% if not is_host %}
+        <div class="comments__create-new">
+             <h4>Add new comment</h4>
+            <div>
+                <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=0%}">
+                    {{ comment_form }}
+                    {% csrf_token %}
+                    <button class="btn btn-primary mt-2" type="submit">Add</button>
+                </form>
+            </div>
+         </div>
+         {% endif %}
+    </div>
+</section>

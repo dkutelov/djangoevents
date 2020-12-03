@@ -42,8 +42,8 @@ class EventInterest(EventEngage):
         else:
             interested = Interested(user=request.user, event=self.event)
             interested.save()
-            going = Going.objects.filter(user_id=request.user.id, event=pk).first()
 
+            going = Going.objects.filter(user_id=request.user.id, event=pk).first()
             if going:
                 going.delete()
 

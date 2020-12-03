@@ -1,2 +1,38 @@
+{% extends 'shared/base.html' %}
 
+{%  block site_title %}
+    Create your profile
+{% endblock %}
+
+{% block content %}
+<div class="profile__container">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="profile__container-inner">
+                <div class="row">
+                    <h2 class="logo-small"><a href="{% url 'events:home' %}">UrbanBeat</a></h2>
+                    <div class="col s10 offset-s1 m8 offset-m2">
+                        <h2 class="profile__heading">Profile</h2>
+                            <img src="{{ user.profile.userPhotoURL.url }}" alt="{{ user.username }}"
+                                        class="profile__user-photo">
+                            <div class="profile__item row">
+                                <span class="profile__item-title col s6">Username</span>
+                                <span class="col s6 left-align">{{ user.username }}</span>
+                            </div>
+                            <div class="profile__item row">
+                                <span class="profile__item-title col s6">From</span>
+                                <span class="col s6 left-align">{{ user.profile.city }}</span>
+                            </div>
+                            <div class="profile__item row">
+                                <span class="profile__item-title col s6">Info</span>
+                                <span class="col s6 left-align">{{ user.profile.about }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 

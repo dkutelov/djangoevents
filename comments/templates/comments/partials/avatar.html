@@ -1,0 +1,11 @@
+{% if profile.userPhotoURL.url %}
+    <i class="profile-photo-round"
+       style="background-image: url('{{ profile.userPhotoURL.url }}')">
+    </i>
+{% else %}
+{% load static %}
+    <i class="profile-photo-round"
+       style="background-image: url('{% static 'assets/icons/user-default.jpg' %}');
+               border: 1px solid white;">
+    </i>
+{% endif %}
