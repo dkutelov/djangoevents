@@ -43,27 +43,45 @@
         <div class="comments__inner-container">
             {% if comments %}
                 {% for comment in comments %}
-                    <div class="comments__comment_container">
-                        <a href="{% url 'accounts:user-profile' user.id %}"
-                           class="profile-photo-round"
-                           style="background-image: url('{{ user.profile.userPhotoURL.url }}')">
+                    <div class="comment__container">
+                        <a href="{% url 'accounts:user-profile' user.id %}">
+                            <i class="profile-photo-round"
+                               style="background-image: url('{{ comment.user.profile.userPhotoURL.url }}')"></i>
                         </a>
-                        <div class="comments__comment-text">
+                        <div class="comment__text">
                             <h5>{{ comment.user.username }}</h5>
                             <p>{{ comment.text }}</p>
-                            <span id="comment-reply" data-comment_id="{{ comment.id }}" class="comment__reply">Reply</span>
+                            <span id="comment-reply" data-comment_id="{{ comment.id }}"
+                                  class="comment__reply">Reply</span>
                         </div>
                     </div>
-                    <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
-                        <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=comment.id %}">
-                            {{ comment_form }}
-                            {% csrf_token %}
-                            <button class="btn btn-primary mt-2" type="submit">Add</button>
-                        </form>
-                    </div>
-                    {% for reply in comment.replies.all %}
-                        <p>{{ reply.text }}</p>
+                     {% for reply in comment.replies.all %}
+                        <div class="comment__reply-container">
+                            <a href="{% url 'accounts:user-profile' user.id %}">
+                                <i class="profile-photo-round" style="background-image:
+                                        url('{{ reply.user.profile.userPhotoURL.url }}')"></i>
+                            </a>
+                            <div class="comment__reply-text">
+                                <h5>{{ reply.user.username }}</h5>
+                                <p>{{ reply.text }}</p>
+                            </div>
+                        </div>
                     {% endfor %}
+                    <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
+                         <div class="comment__reply-form-inner">
+                             <a href="{% url 'accounts:user-profile' user.id %}">
+                                <i class="profile-photo-round"
+                                   style="background-image: url('{{ comment.user.profile.userPhotoURL.url }}')"></i>
+                            </a>
+                            <div class="comment__reply-text">
+                                <form method="post" action="{% url 'events:event comment' pk=event.pk parent_id=comment.id %}">
+                                    {{ comment_form }}
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary mt-2" type="submit">Add</button>
+                                </form>
+                            </div>
+                         </div>
+                    </div>
                 {% endfor %}
             {% else %}
                <p>There are no comments for this event.</p>
