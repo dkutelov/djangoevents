@@ -1,14 +1,17 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from accounts.models import Profile
+from events.forms.event_create import CreateEventForm
+from events.models import Event
 
 
-@login_required
-def event_create(request):
-    current_profile = Profile.objects.get(user=request.user)
-    print(current_profile.userPhotoURL.url)
-    context = {
-        'profile': current_profile
-    }
-    return render(request, 'events/create-event.html', context)
+class EventCreateView(LoginRequiredMixin, CreateView):
+    model = Event
+    template_name = 'events/create-event.html'
+    form_class = CreateEventForm
+    success_url = reverse_lazy('events:home')
+
+    def form_valid(self, form):
+        form.instance.hosted_by = self.request.user
+        return super().form_valid(form)

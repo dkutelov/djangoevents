@@ -1,8 +1,10 @@
 from django.urls import path, include
 
 from .views.event_comment import EventComment
-from .views.event_create import event_create
+from .views.event_create import EventCreateView
+
 from .views.event_detail import EventDetail
+from .views.event_edit import EventEditView
 from .views.event_engage import EventGo, EventInterest, EventLike
 from .views.events import EventsListingView
 
@@ -14,5 +16,6 @@ urlpatterns = [
     path('event/<int:pk>/interested', EventInterest.as_view(), name='event interest'),
     path('event/<int:pk>/going', EventGo.as_view(), name='event going'),
     path('event/<int:pk>/comment/<int:parent_id>', EventComment.as_view(), name='event comment'),
-    path('event/create/', event_create, name='event create'),
+    path('event/create/', EventCreateView.as_view(), name='event create'),
+    path('event/<int:pk>/edit/', EventEditView.as_view(), name='event edit'),
 ]

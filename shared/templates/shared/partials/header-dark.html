@@ -10,14 +10,19 @@
       <div class="nav-wrapper">
         <a href="{% url 'events:home' %}" class="brand-logo">UrbanBeat</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'events:event create' %}">Create Event</a></li>
           <!-- Dropdown Trigger -->
           <li>
-              <a class="dropdown-trigger" href="#!" data-target="dropdown-profile">
-                  <img src="{{ profile.userPhotoURL.url }}"
-                       class="circle responsive-img" alt="user photo"
-                       width="45px" height="45px" style="margin-top: 0.5rem;">
-                <i class="material-icons right">arrow_drop_down</i>
+              <a class="dropdown-trigger header__profile" href="#!" data-target="dropdown-profile">
+                 <div class="profile-photo">
+                         {% if user.profile.userPhotoURL %}
+                             <img src="{{ user.profile.userPhotoURL.url }}" alt="user photo">
+                        {% else %}
+                             {% load static %}
+                             <img src="{% static 'assets/icons/user-default.jpg' %}" alt="user photo default">
+                        {% endif %}
+                 </div>
+                 <span>{{ user.username }}</span>
+                 <i class="material-icons header__arrow">arrow_drop_down</i>
               </a>
           </li>
         </ul>

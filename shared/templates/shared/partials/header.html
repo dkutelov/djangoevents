@@ -4,8 +4,9 @@
         <div class="header__nav">
             {% if user.is_authenticated %}
                 <ul id="dropdown-profile" class="dropdown-content">
-                  <li><a href="{% url 'accounts:user-edit-profile' %}">My profile</a></li>
-                  <li class="divider"></li>
+                    <li><a href="{% url 'accounts:user-edit-profile' %}">My profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'events:event create' %}">New event</a></li>
                     <li><a href="{% url 'accounts:logout' %}">Sign out</a></li>
                 </ul>
                 <a class="dropdown-trigger header__profile " href="#" data-target="dropdown-profile">

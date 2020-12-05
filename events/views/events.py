@@ -1,4 +1,5 @@
 from django.views.generic import ListView
+from django.utils import timezone
 
 from events.forms.filter_form import FilterForm
 from events.forms.search_form import SearchForm
@@ -10,10 +11,10 @@ class EventsListingView(ListView):
     model = Event
     template_name = 'events/index.html'
     context_object_name = 'events'
-    order_by_asc = True
     order_by = 'date'
     contains_text = ''
     paginate_by = 12
+    current_date = timezone.now()
 
     def dispatch(self, request, *args, **kwargs):
         params = extract_filter_values(request.GET)
@@ -24,8 +25,9 @@ class EventsListingView(ListView):
     def get_queryset(self):
         order_by = 'date' if self.order_by == FilterForm.ORDER_ASC or \
                              self.order_by == FilterForm.ORDER_DATE else '-date'
-        result = self.model.objects.filter(name__icontains=self.contains_text).order_by(order_by)
-        return result
+        return self.model.objects.filter(date__gte=self.current_date)\
+            .filter(name__icontains=self.contains_text)\
+            .order_by(order_by)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
