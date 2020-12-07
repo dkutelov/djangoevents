@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.shortcuts import redirect
 from django.views.generic.base import View
 
@@ -8,6 +9,7 @@ from events.models import Event
 
 
 class EventComment(LoginRequiredMixin, View):
+    @transaction.atomic
     def post(self, request, pk, parent_id):
         form = CommentForm(request.POST)
         if form.is_valid():

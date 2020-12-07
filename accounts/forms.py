@@ -68,4 +68,7 @@ class UserProfileForm(forms.ModelForm):
         }
 
 
+class ResetPasswordForm(forms.Form):
+    email = forms.CharField(widget=forms.EmailField(max_length=200))
+
 

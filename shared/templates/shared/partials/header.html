@@ -4,14 +4,17 @@
         <div class="header__nav">
             {% if user.is_authenticated %}
                 <ul id="dropdown-profile" class="dropdown-content">
-                    <li><a href="{% url 'accounts:user-edit-profile' %}">My profile</a></li>
+                    <li><a href="{% url 'user-profile' user.id %}">My profile</a></li>
                     <li class="divider"></li>
+                    {% if not user.profile.exists %}
+                         <li><a href="{% url 'user-create-profile' %}">Create profile</a></li>
+                    {% endif %}
                     <li><a href="{% url 'events:event create' %}">New event</a></li>
-                    <li><a href="{% url 'accounts:logout' %}">Sign out</a></li>
+                    <li><a href="{% url 'logout' %}">Sign out</a></li>
                 </ul>
                 <a class="dropdown-trigger header__profile " href="#" data-target="dropdown-profile">
                     <div class="profile-photo">
-                         {% if user.profile.userPhotoURL %}
+                        {% if user.profile.userPhotoURL %}
                              <img src="{{ user.profile.userPhotoURL.url }}" alt="user photo">
                         {% else %}
                              {% load static %}
@@ -22,8 +25,8 @@
                     <i class="material-icons header__arrow">arrow_drop_down</i>
                 </a>
             {% else %}
-                 <a href="{% url 'accounts:signup' %}" class="btn-link">Sign Up</a>
-                <a href="{% url 'accounts:signin' %}" class="btn">Sign In</a>
+                 <a href="{% url 'signup' %}" class="btn-link">Sign Up</a>
+                <a href="{% url 'signin' %}" class="btn">Sign In</a>
             {% endif %}
         </div>
     </div>

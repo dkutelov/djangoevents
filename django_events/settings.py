@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'events',
-    'accounts',
     'comments',
     'shared',
     'cloudinary',
@@ -147,3 +147,6 @@ STATICFILES_DIRS = (join(BASE_DIR, 'static'),)
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/accounts/signin/'
 
+#log emails to console
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))

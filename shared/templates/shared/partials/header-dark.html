@@ -1,12 +1,15 @@
 <!-- Dropdown Structure -->
     <ul id="dropdown-profile" class="dropdown-content">
-      <li><a href="{% url 'accounts:user-edit-profile' %}">My profile</a></li>
+      <li><a href="{% url 'user-edit-profile' %}">My profile</a></li>
       <li class="divider"></li>
-        <li><a href="{% url 'accounts:logout' %}">Sign out</a></li>
+        {% if not user.profile.exists %}
+            <li><a href="{% url 'user-create-profile' %}">Create profile</a></li>
+        {% endif %}
+        <li><a href="{% url 'logout' %}">Sign out</a></li>
     </ul>
 
     <nav>
-        <div class="container">
+      <div class="container">
       <div class="nav-wrapper">
         <a href="{% url 'events:home' %}" class="brand-logo">UrbanBeat</a>
         <ul class="right hide-on-med-and-down">
@@ -14,7 +17,7 @@
           <li>
               <a class="dropdown-trigger header__profile" href="#!" data-target="dropdown-profile">
                  <div class="profile-photo">
-                         {% if user.profile.userPhotoURL %}
+                        {% if user.profile.userPhotoURL %}
                              <img src="{{ user.profile.userPhotoURL.url }}" alt="user photo">
                         {% else %}
                              {% load static %}
@@ -27,5 +30,5 @@
           </li>
         </ul>
       </div>
-            </div>
-    </nav>
+    </div>
+</nav>

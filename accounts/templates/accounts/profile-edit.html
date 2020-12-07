@@ -1,7 +1,7 @@
 {% extends 'shared/base.html' %}
 
 {%  block site_title %}
-    Create your profile
+    Edit your profile
 {% endblock %}
 
 {% block content %}
@@ -12,9 +12,9 @@
                 <div class="row">
                     <h2 class="logo-small"><a href="{% url 'events:home' %}">UrbanBeat</a></h2>
                     <div class="col s10 offset-s1 m8 offset-m2">
-                        <h2 class="profile__table-title">Complete Your Profile</h2>
+                        <h2 class="profile__table-title">Edit Your Profile</h2>
                         {% include 'shared/partials/form-errors.html' %}
-                        <form action="{% url 'user-create-profile' %}" method="POST" enctype="multipart/form-data">
+                        <form action="{% url 'user-edit-profile' %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {% for field in form %}
                             <div class="row">
@@ -25,11 +25,10 @@
                                 </div>
                             </div>
                             {% endfor %}
-                            <button class="btn" tabindex="3">Save</button>
+                            <button class="btn" tabindex="3">Edit</button>
                         </form>
                     </div>
                     <div class="col s12">
-                        <p>You can create your profile at any time</p>
                         <a class="btn-link" href="{% url 'events:home' %}">Explore our events</a>
                     </div>
                 </div>
@@ -38,4 +37,3 @@
     </div>
 </div>
 {% endblock %}
-
