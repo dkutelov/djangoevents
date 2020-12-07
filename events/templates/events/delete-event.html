@@ -1,0 +1,30 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Delete your event
+{% endblock %}
+
+{% block page_styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block content %}
+{% include 'shared/partials/header-dark.html' %}
+<div class="event-create__container">
+    <h1 class="event-create__heading">Delete your Event</h1>
+
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="event-create__section">
+                <div class="row">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <p>Are you sure you want to delete your event?</p>
+                        <button class="btn" tabindex="3">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

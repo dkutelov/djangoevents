@@ -1,12 +1,12 @@
-from django.urls import reverse_lazy
 from django.views.generic import UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import Group
 
 from events.forms.event_create import CreateEventForm
 from events.models import Event
 
 
-class EventEditView(UpdateView):
+class EventEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Event
     form_class = CreateEventForm
     template_name = 'events/edit-event.html'
@@ -20,9 +20,10 @@ class EventEditView(UpdateView):
         event = self.get_object()
         return f'/event/{event.id}'
 
-    # def get(self, request, pk):
-    #     if not has_access_to_modify(self.request.user, self.get_object()):
-    #         return render(request, 'permission_denied.html')
-    #     instance = Furniture.objects.get(pk=pk)
-    #     form = CreateFurnitureForm(request.POST or None, instance=instance)
-    #     return render(request, 'furniture_create.html', {'form': form})
+    def test_func(self):
+        event = self.get_object()
+        user = self.request.user
+        group = Group.objects.get(name='Admins')
+        is_admin = group in user.groups.all()
+        is_author = event.hosted_by == user
+        return is_author or is_admin

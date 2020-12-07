@@ -1,5 +1,5 @@
 {% extends 'shared/base.html' %}
-
+{% load has_group %}
 {%  block site_title %}
     Events detail page
 {% endblock %}
@@ -44,10 +44,10 @@
 
 
         {% if user.is_authenticated %}
-            {% if is_host or user.is_superuser %}
+            {% if is_host or user.is_superuser or user|has_group:'Admins'%}
                 <div class="event__modify">
                     <a href="{% url 'events:event edit' event.id %}" class="btn">Edit event</a>
-                    <a href="#" class="btn">Delete event</a>
+                    <a href="{% url 'events:event delete' event.id %}" class="btn">Delete event</a>
                 </div>
              {% endif %}
         {% endif %}
