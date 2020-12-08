@@ -1,0 +1,45 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Admin list view
+{% endblock %}
+
+
+{% block content %}
+{% include 'shared/partials/header.html' %}
+
+<section class="events__container">
+    <div class="events__heading center-align">
+        <h2>All Events</h2>
+    </div>
+
+     <div class="row">
+        <div class="events__admin-card-container col s12">
+     <table class="highlight">
+        <thead>
+          <tr>
+              <th>Event</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Venue</th>
+              <th>City</th>
+              <th>Hosted by</th>
+              <th>Price</th>
+              <th>Liked</th>
+              <th>Edit</th>
+              <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            {% include 'events/partials/event-listing-card-admin.html' with event=event %}
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+{% load static %}
+{% block page_scripts %} <script src="{% static 'js/header.js'%}"></script>{% endblock %}

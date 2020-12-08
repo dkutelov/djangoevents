@@ -1,3 +1,4 @@
+{% load has_group %}
 <div class="header{% if bg_white %} bg-white{% endif %}">
     <div class="header__container">
         <h1 class="header__brand"><a href="{% url 'events:home' %}">UrbanBeat</a></h1>
@@ -8,6 +9,14 @@
                     <li class="divider"></li>
                     {% if not user.profile %}
                          <li><a href="{% url 'user-create-profile' %}">Create profile</a></li>
+                    {% endif %}
+                    {% if user.is_superuser or user|has_group:'Admins' %}
+                       <li>
+                           <a href="{% url 'events:events admin' %}">All events</a>
+                       </li>
+                        <li>
+                           <a href="{% url 'user list' %}">All users</a>
+                       </li>
                     {% endif %}
                     <li><a href="{% url 'events:event create' %}">New event</a></li>
                     <li><a href="{% url 'logout' %}">Sign out</a></li>

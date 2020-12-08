@@ -27,6 +27,10 @@
                             <span class="profile__item-title col s6">Info</span>
                             <span class="col s6 left-align">{{ user.profile.about }}</span>
                         </div>
+                         <div class="profile__item row">
+                            <span class="profile__item-title col s6">Hosted events</span>
+                            <span class="col s6 left-align">{{ user.event_set.count }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="">

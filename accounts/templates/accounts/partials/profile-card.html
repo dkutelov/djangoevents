@@ -1,0 +1,17 @@
+ <tr>
+     <td><img src="{{profile.userPhotoURL.url}}" height="50px" alt="{{ event.name }}" style="border-radius: 50%;"/></td>
+     <td>{{ profile.user.username }}</td>
+     <td>{{ profile.user.email }}</td>
+     <td>{{ profile.city }}</td>
+     <td>{{ profile.user.event_set.count }}</td>
+     <td>
+         <a href="{% url 'other-user-edit-profile' profile.id %}">
+             <i class="material-icons">edit</i>
+         </a>
+     </td>
+     <td>
+          <a href="{% url 'user-profile' profile.user.id %}">
+             <i class="material-icons">visibility</i>
+         </a>
+     </td>
+</tr>

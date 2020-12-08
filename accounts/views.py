@@ -1,14 +1,15 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, UpdateView
+from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import View
 
 from accounts.models import Profile
-from accounts.forms import UserSignupForm, UserSignInForm, UserProfileForm, ResetPasswordForm
+from accounts.forms import UserSignupForm, UserSignInForm, UserProfileForm
+from shared.views import GroupRequiredMixin
 
 
 class UserDetail(DetailView):
@@ -99,4 +100,20 @@ class ProfileDetail(DetailView):
     model = User
     template_name = 'accounts/profile.html'
     context_object_name = 'user'
+
+
+class UserProfileList(GroupRequiredMixin, ListView):
+    model = Profile
+    template_name = 'accounts/profiles.html'
+    context_object_name = 'profiles'
+    paginate_by = 12
+    groups = ['Admins']
+
+
+class OtherProfileEditView(GroupRequiredMixin, UpdateView):
+    model = Profile
+    template_name = 'accounts/profile-edit.html'
+    form_class = UserProfileForm
+    groups = ['Admins']
+
 

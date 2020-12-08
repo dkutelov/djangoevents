@@ -7,7 +7,7 @@ from events.models import Event
 from events.views.utils import extract_filter_values
 
 
-class EventsListingView(ListView):
+class EventListView(ListView):
     model = Event
     template_name = 'events/index.html'
     context_object_name = 'events'

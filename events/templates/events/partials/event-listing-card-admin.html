@@ -1,0 +1,20 @@
+ <tr>
+     <td><img src="{{event.event_photo.url}}" height="70px" alt="{{ event.name }}" style="border-radius: 10px;"/></td>
+     <td>{{ event.name }}</td>
+     <td>{{ event.date|date:'d M yy' }}</td>
+     <td>{{ event.venue }}</td>
+     <td>{{ event.city }}</td>
+     <td>{{ event.hosted_by }}</td>
+     <td>{{ event.ticket_price }}</td>
+     <td>{{ event.like_set.count }}</td>
+     <td>
+         <a href="{% url 'events:event edit' event.id %}">
+             <i class="material-icons">edit</i>
+         </a>
+     </td>
+     <td>
+          <a href="{% url 'events:event delete' event.id %}">
+             <i class="material-icons" style="color: #ff0000;">delete</i>
+         </a>
+     </td>
+</tr>
