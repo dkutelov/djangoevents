@@ -15,17 +15,30 @@
                         <h2 class="profile__table-title">Edit Your Profile</h2>
                         <a class="btn-link" href="{% url 'password_change' %}">Change your password</a>
                         {% include 'shared/partials/form-errors.html' %}
-                        <form action="{% url 'user-edit-profile' %}" method="POST" enctype="multipart/form-data">
+                        <form action="{% url 'user-edit-profile' %}" method="POST" enctype="multipart/form-data" class="profile__form">
                             {% csrf_token %}
-                            {% for field in form %}
+                            <img id="uploadedImage" class="profile__uploaded-image--update"/>
                             <div class="row">
-                                <div class="input-field s12">
-                                    <label class="form__label" for="{{ field.auto_id }}">{{ field.label|upper }}</label>
-                                    {{ field }}
+                                <div class="input-field">
+                                    <label for="{{ form.userPhotoURL.auto_id }}" class="form__label">UPDATE YOUR PHOTO</label>
+                                    {{ form.userPhotoURL }}
                                     {% include 'shared/partials/form-field-error.html' %}
                                 </div>
                             </div>
-                            {% endfor %}
+                            <div class="row">
+                                <div class="input-field">
+                                    <label for="{{ form.about.auto_id }}" class="form__label">{{ form.about.label|upper }}</label>
+                                    {{ form.about }}
+                                    {% include 'shared/partials/form-field-error.html' %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field">
+                                    <label for="{{ form.city.auto_id }}" class="form__label">{{ form.city.label|upper }}</label>
+                                    {{ form.city }}
+                                    {% include 'shared/partials/form-field-error.html' %}
+                                </div>
+                            </div>
                             <button class="btn" tabindex="3">Edit</button>
                         </form>
                     </div>
@@ -37,4 +50,14 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% load static %}
+{% block page_scripts %}
+    <script src="{% static 'js/showUploadImage.js' %}"></script>
+    <script>
+        const imageFieldElements = Array.from(document.getElementById('id_userPhotoURL').parentElement.children)
+        if (imageFieldElements[1]) {
+            imageElement.src = imageFieldElements[1].href;
+        }
+    </script>
 {% endblock %}

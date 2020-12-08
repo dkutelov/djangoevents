@@ -48,6 +48,7 @@ class UserSignInForm(forms.Form):
         return self.cleaned_data
 
 
+# TODO city and description validation
 class UserProfileForm(forms.ModelForm):
     userPhotoURL = CloudinaryFileField(
         options={
@@ -65,6 +66,9 @@ class UserProfileForm(forms.ModelForm):
             'userPhotoURL': 'Upload you photo',
             'about': 'Introduce yourself to potential friends',
             'city': 'Your city'
+        }
+        widgets = {
+            'about': forms.Textarea(attrs={'class': 'form-textarea'})
         }
 
 

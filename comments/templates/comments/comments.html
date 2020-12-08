@@ -5,7 +5,7 @@
             {% if comments %}
                 {% for comment in comments %}
                     <div class="comment__container">
-                        <a href="{% url 'accounts:user-profile' comment.user.id %}">
+                        <a href="{% url 'user-profile' comment.user.id %}">
                             {% include 'comments/partials/avatar.html' with profile=comment.user.profile %}
                         </a>
                         <div class="comment__text">
@@ -18,7 +18,7 @@
                     </div>
                      {% for reply in comment.replies.all %}
                         <div class="comment__reply-container">
-                            <a href="{% url 'accounts:user-profile' reply.user.id %}">
+                            <a href="{% url 'user-profile' reply.user.id %}">
                                 {% include 'comments/partials/avatar.html' with profile=reply.user.profile %}
                             </a>
                             <div class="comment__reply-text">
@@ -30,7 +30,7 @@
                     {% endfor %}
                     <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
                          <div class="comment__reply-form-inner">
-                             <a href="{% url 'accounts:user-profile' user.id %}">
+                             <a href="{% url 'user-profile' user.id %}">
                                {% include 'comments/partials/avatar.html' with profile=user.profile %}
                             </a>
                             <div class="comment__reply-text">

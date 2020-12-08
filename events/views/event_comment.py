@@ -21,4 +21,5 @@ class EventComment(LoginRequiredMixin, View):
                 comment.parent = Comment.objects.get(pk=parent_id)
             comment.save()
             return redirect('events:event detail', pk)
+        return redirect('events:event detail', pk)
 

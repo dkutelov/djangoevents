@@ -16,15 +16,28 @@
                         {% include 'shared/partials/form-errors.html' %}
                         <form action="{% url 'user-create-profile' %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {% for field in form %}
+                            <img id="uploadedImage" class="profile__uploaded-image"/>
                             <div class="row">
-                                <div class="input-field s12">
-                                    <label class="form__label" for="{{ field.auto_id }}">{{ field.label|upper }}</label>
-                                    {{ field }}
+                                <div class="input-field">
+                                    <label for="{{ form.userPhotoURL.auto_id }}" class="form__label">UPLOAD YOUR PHOTO</label>
+                                    {{ form.userPhotoURL }}
                                     {% include 'shared/partials/form-field-error.html' %}
                                 </div>
                             </div>
-                            {% endfor %}
+                            <div class="row">
+                                <div class="input-field">
+                                    <label for="{{ form.about.auto_id }}" class="form__label">{{ form.about.label|upper }}</label>
+                                    {{ form.about }}
+                                    {% include 'shared/partials/form-field-error.html' %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field">
+                                    <label for="{{ form.city.auto_id }}" class="form__label">{{ form.city.label|upper }}</label>
+                                    {{ form.city }}
+                                    {% include 'shared/partials/form-field-error.html' %}
+                                </div>
+                            </div>
                             <button class="btn" tabindex="3">Save</button>
                         </form>
                     </div>
@@ -38,4 +51,7 @@
     </div>
 </div>
 {% endblock %}
-
+{% load static %}
+{% block page_scripts %}
+    <script src="{% static 'js/showUploadImage.js' %}"></script>
+{% endblock %}

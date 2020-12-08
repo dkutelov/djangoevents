@@ -31,7 +31,7 @@ class SignUp(CreateView):
             user.set_password(user.password)
             user.save()
             login(request, user)
-            return redirect('accounts:user-create-profile')
+            return redirect('user-create-profile')
         return render(request, self.template_name, {'form': form})
 
 

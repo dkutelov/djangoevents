@@ -20,6 +20,7 @@
                     {% include 'shared/partials/form-errors.html' %}
                     <form action="{% url 'events:event create' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <img id="uploadedImage" class="event-create__uploaded-image"/>
                         {% for field in form %}
                         <div class="row">
                             <div class="input-field s12">
@@ -39,7 +40,8 @@
 {% endblock %}
 {% load static %}
 {% block page_scripts %}
-    <script src="{% static 'js/header.js'%}"></script>
+    <script src="{% static 'js/header.js' %}"></script>
+    <script src="{% static 'js/showUploadImage.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         flatpickr("#datetime", {
