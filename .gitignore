@@ -2,7 +2,7 @@
 *.pot
 __pycache__/
 local_settings.py
-/static/
+/static/assets/
 .idea
 db.sqlite3
 venv
