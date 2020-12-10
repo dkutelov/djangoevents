@@ -1,8 +1,8 @@
 from django.views.generic import ListView
 from django.utils import timezone
 
+from events.forms.sort_form import SortForm
 from events.forms.filter_form import FilterForm
-from events.forms.search_form import SearchForm
 from events.models import Event
 from events.views.utils import extract_filter_values
 
@@ -23,18 +23,18 @@ class EventListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        order_by = 'date' if self.order_by == FilterForm.ORDER_ASC or \
-                             self.order_by == FilterForm.ORDER_DATE else '-date'
+        order_by = 'date' if self.order_by == SortForm.ORDER_ASC or \
+                             self.order_by == SortForm.ORDER_DATE else '-date'
         return self.model.objects.filter(date__gte=self.current_date)\
             .filter(name__icontains=self.contains_text)\
             .order_by(order_by)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter_form'] = FilterForm(initial={
-            'order': FilterForm.ORDER_DATE,
+        context['filter_form'] = SortForm(initial={
+            'order': SortForm.ORDER_DATE,
         })
-        context['search_form'] = SearchForm(initial={
+        context['search_form'] = FilterForm(initial={
             'text': self.contains_text
         })
         return context

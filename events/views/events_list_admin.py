@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from django.utils import timezone
 
@@ -5,7 +6,7 @@ from events.models import Event
 from shared.views import GroupRequiredMixin
 
 
-class EventAdminListView(GroupRequiredMixin, ListView):
+class EventAdminListView(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Event
     template_name = 'events/admin-list.html'
     context_object_name = 'events'

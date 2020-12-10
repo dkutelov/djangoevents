@@ -11,10 +11,15 @@
 <section class="event__container">
     <div class="event__image-container"
          style="background-image: url('{{ event.event_photo.url }}')">
-        <div class="event__image-content">
-            <a href="{% url 'events:home' %}"><i class="material-icons">arrow_back</i>Back</a>
-            <h2>{{ event.name }} in {{ event.city }}</h2>
-            <p>by {{event.hosted_by.username }}</p>
+        <div class="event__image-content--left">
+            <a class="back-link" href="{% url 'events:home' %}"><i class="material-icons">arrow_back</i>Back</a>
+            <h2 class="name">{{ event.name }} in</h2>
+            <h2 class="city">{{ event.city }}</h2>
+            <p class="hosted-by">hosted by {{event.hosted_by.username }}</p>
+            <div class="location">
+                <h4>{{ event.venue }}</h4>
+                <p>{{ event.venue_address }}</p>
+            </div>
         </div>
     </div>
     <div class="event__content-container">

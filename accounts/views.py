@@ -22,17 +22,15 @@ class SignUp(CreateView):
     model = User
     form_class = UserSignupForm
     template_name = 'accounts/signup.html'
+    success_url = reverse_lazy('user-create-profile')
 
-    @transaction.atomic
-    def post(self, request, *args, **kwargs):
-        form = UserSignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.set_password(user.password)
-            user.save()
-            login(request, user)
-            return redirect('user-create-profile')
-        return render(request, self.template_name, {'form': form})
+    def form_valid(self, form):
+        valid = super().form_valid(form)
+        user = form.save()
+        user.set_password(user.password)
+        user.save()
+        login(self.request, user)
+        return valid
 
 
 class SignIn(View):
