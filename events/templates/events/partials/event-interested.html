@@ -2,12 +2,12 @@
     {% if interested %}
         <a href="{% url 'events:event interest' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
             <i class="material-icons">star</i>
-            <span>{{ event.interested_set.count }} interested</span>
         </a>
     {% else %}
-        <a href="{% url 'events:event interest' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
+        <a href="{% if user.is_authenticated %}{% url 'events:event interest' event.id %}{% endif %}"
+           class="btn btn-flat-icon waves-effect waves-light">
             <i class="material-icons">star_border</i>
-            <span>{{ event.interested_set.count }} interested</span>
         </a>
     {% endif %}
+    <span>{{ event.interested_set.count }} interested</span>
 </div>

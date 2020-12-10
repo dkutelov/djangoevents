@@ -1,14 +1,12 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.db import transaction
-from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.base import View
 
 from accounts.models import Profile
-from accounts.forms import UserSignupForm, UserSignInForm, UserProfileForm
+from accounts.forms import UserSignupForm, UserProfileForm
 from shared.views import GroupRequiredMixin
 
 
@@ -33,30 +31,13 @@ class SignUp(CreateView):
         return valid
 
 
-class SignIn(View):
+class SignIn(LoginView):
     model = User
     template_name = 'accounts/signin.html'
 
-    @staticmethod
-    def get_redirect_url(params):
-        redirect_url = params.get('return_url')
-        return redirect_url if redirect_url else 'events:home'
-
-    def get(self, request, *args, **kwargs):
-        form = UserSignInForm()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = UserSignInForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user:
-                login(request, user)
-                redirect_url = self.get_redirect_url(request.POST)
-                return redirect(redirect_url)
-        return render(request, self.template_name, {'form': form})
+    def get_success_url(self):
+        redirect_url = self.request.POST.get('return_url')
+        return redirect_url if redirect_url else reverse_lazy('events:home')
 
 
 class ProfileCreateView(LoginRequiredMixin, CreateView):

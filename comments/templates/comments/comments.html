@@ -28,6 +28,7 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {% if user.is_authenticated %}
                     <div class="comment__reply-form-container" id="reply" data-comment_id="{{ comment.id }}">
                          <div class="comment__reply-form-inner">
                              <a href="{% url 'user-profile' user.id %}">
@@ -42,12 +43,13 @@
                             </div>
                          </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
             {% else %}
                <p>There are no comments for this event.</p>
             {% endif %}
         </div>
-        {% if not is_host %}
+        {% if not is_host and user.is_authenticated%}
         <div class="comments__create-new">
              <h4>Add new comment</h4>
             <div>

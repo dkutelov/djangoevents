@@ -29,7 +29,10 @@
                 {% include 'events/partials/event-interested.html' with event=event interested=interested %}
                 {% include 'events/partials/event-going.html' with event=event going=going %}
             {% endif %}
-            <span class="event__sign-in-message">Click to sign in!</span>
+            <span class="event__sign-in-message">
+                <span>You need to be signed in to like, show interest or intention to go!</span>
+                <a class="btn" href="{% url 'signin' %}?next={{ request.path|urlencode }}">Sign in</a>
+                !</span>
         </div>
 
         <div class="row event-info">

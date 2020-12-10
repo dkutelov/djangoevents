@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from cloudinary.forms import CloudinaryFileField
@@ -29,23 +29,29 @@ class UserSignupForm(UserCreationForm):
         return user
 
 
-class UserSignInForm(forms.Form):
-    username = forms.CharField(max_length=100)
-    password = forms.CharField(
-        max_length=100,
-        widget=forms.PasswordInput(),
-    )
+# class UserSignInForm(forms.Form):
+#     username = forms.CharField(max_length=100)
+#     password = forms.CharField(
+#         max_length=100,
+#         widget=forms.PasswordInput(),
+#     )
+#
+#     username.widget.attrs.update({'placeholder': 'John Doe', 'tabindex': 1})
+#     password.widget.attrs.update({'placeholder': '8+ characters', 'tabindex': 2})
+#
+#
+#     def clean(self):
+#         username = self.cleaned_data.get('username')
+#         password = self.cleaned_data.get('password')
+#         user = authenticate(username=username, password=password)
+#         if not user or not user.is_active:
+#             raise forms.ValidationError("Sorry, that login was invalid. Please try again.")
+#         return self.cleaned_data
 
-    username.widget.attrs.update({'placeholder': 'John Doe', 'tabindex': 1})
-    password.widget.attrs.update({'placeholder': '8+ characters', 'tabindex': 2})
-
-    def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-        user = authenticate(username=username, password=password)
-        if not user or not user.is_active:
-            raise forms.ValidationError("Sorry, that login was invalid. Please try again.")
-        return self.cleaned_data
+# class UserSignInForm(AuthenticationForm):
+#     class Meta:
+#         model = User
+#         fields = '__all__'
 
 
 # TODO city and description validation
