@@ -8735,7 +8735,7 @@ footer .footer__copy-line p {
 
 .event__container {
   background-color: white;
-  padding-bottom: 5em;
+  padding-bottom: 1em;
 }
 .event__image-container {
   position: relative;
@@ -8790,7 +8790,24 @@ footer .footer__copy-line p {
 .event__engagement {
   display: flex;
   justify-content: center;
-  margin-bottom: 2em;
+  margin-bottom: 4em;
+}
+.event__engagement .section {
+  flex-grow: 1;
+}
+.event__engagement .section:first-of-type {
+  border-right: 1px solid #ad90f8;
+}
+.event__engagement .section:last-of-type {
+  border-left: 1px solid #ad90f8;
+}
+.event__engagement .section h5 {
+  text-align: center;
+}
+.event__engagement .section__upper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 .event__map-container {
   height: 400px;
@@ -8807,18 +8824,44 @@ footer .footer__copy-line p {
   display: none;
 }
 
-.show-sing-in-notification:hover .event__sign-in-message {
+.show-sing-in-notification:hover .event__sign-in-message,
+.event__sign-in-message:hover {
+  font-size: 0.85em;
+  padding: 1em;
   display: block;
   position: absolute;
-  color: #ff5c81;
-  top: -20px;
+  color: #43434b;
+  top: -10px;
+  background-color: white;
+  border: 1px solid #43434b;
+  border-radius: 10px;
+  z-index: 10;
+}
+.show-sing-in-notification:hover .event__sign-in-message .btn, .show-sing-in-notification:hover .event__sign-in-message .btn-large, .show-sing-in-notification:hover .event__sign-in-message .btn-small,
+.event__sign-in-message:hover .btn,
+.event__sign-in-message:hover .btn-large,
+.event__sign-in-message:hover .btn-small {
+  margin-left: 1em;
 }
 
 .event-info__left-content {
   padding-left: 0 !important;
 }
+.event-info__left-content h4 {
+  margin-bottom: 1.2em;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.event-info__left-content p {
+  margin-bottom: 2em;
+}
 .event-info__right-content {
   padding-right: 0 !important;
+}
+.event-info__right-content h4 {
+  margin-bottom: 1.2em;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .card__address {

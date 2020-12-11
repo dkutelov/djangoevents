@@ -1,13 +1,16 @@
-<div>
-    {% if liked %}
-        <a href="{% url 'events:event like' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
-            <i class="material-icons">favorite</i>
-        </a>
-    {% else %}
-        <a href="{% if user.is_authenticated %}{% url 'events:event like' event.id %}{% endif %}"
-           class="btn btn-flat-icon waves-effect waves-light">
-            <i class="material-icons">favorite_border</i>
-        </a>
-    {% endif %}
-     <span>{{ event.like_set.count }} liked</span>
+<div class="section">
+    <h5>Likes</h5>
+    <div class="section__upper">
+        {% if liked %}
+            <a href="{% url 'events:event like' event.id %}" class="btn waves-effect waves-light">
+                <i class="material-icons">favorite</i>
+            </a>
+        {% else %}
+            <a href="{% if user.is_authenticated %}{% url 'events:event like' event.id %}{% endif %}"
+               class="btn waves-effect waves-light">
+                <i class="material-icons">favorite_border</i>
+            </a>
+        {% endif %}
+         <span>{{ event.like_set.count }} liked</span>
+    </div>
 </div>

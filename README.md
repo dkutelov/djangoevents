@@ -10,11 +10,11 @@
     * can see event detailed page
     * sign up
     * sign in from event detail page will redirect back to same event page
-    * ??? can see users profiles 
+    * can see users profiles 
 
 * Logged in users
-    * sign in and logout
-    * create profile (options) or edit their profile
+    * sign in and logout, change and reset password
+    * create profile (optional) or edit their profile
     * can create, edit and delete their own events
     * like events
     * show interest in event or intention to go (one of them only, e.g. if you are interested and click going, interested is deleted, and vice versa)

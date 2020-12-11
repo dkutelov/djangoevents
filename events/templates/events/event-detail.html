@@ -32,7 +32,7 @@
             <span class="event__sign-in-message">
                 <span>You need to be signed in to like, show interest or intention to go!</span>
                 <a class="btn" href="{% url 'signin' %}?next={{ request.path|urlencode }}">Sign in</a>
-                !</span>
+            </span>
         </div>
 
         <div class="row event-info">
@@ -40,9 +40,21 @@
                 <h4>Description</h4>
                 <p>{{ event.description }}</p>
 
+                 <h4>Category</h4>
+                 <p>{{ event.type }}</p>
+
                  <h4>Time</h4>
                  <p>Date: {{ event.date|date:'d-M-yy' }}</p>
-                 <p>Time: {{ event.date|date:'h-m' }}</p>
+                 <p>Time: {{ event.date|date:'h:m' }}</p>
+
+                <h4>People going</h4>
+                {% for going in event.going_set.all %}
+                    <a href="{% url 'user-profile' going.user.id %}">
+                        <span class="profile-photo-round " style="background-image: url('{{ going.user.profile.userPhotoURL.url }}')">
+
+                        </span>
+                    </a>
+                {% endfor %}
             </div>
             <div class="col s12 m4 event-info__right-content">
                 <h4>Event Location</h4>

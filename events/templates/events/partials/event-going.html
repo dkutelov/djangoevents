@@ -1,13 +1,16 @@
- <div>
-    {% if going %}
-        <a href="{% url 'events:event going' event.id %}" class="btn btn-flat-icon waves-effect waves-light">
-            <i class="material-icons">check_circle</i>
-        </a>
-    {% else %}
-        <a href="{% if user.is_authenticated %}{% url 'events:event going' event.id %}{% endif %}"
-           class="btn btn-flat-icon waves-effect waves-light">
-            <i class="material-icons">help_outline</i>
-        </a>
-    {% endif %}
-    <span>{{ event.going_set.count }} going</span>
+ <div class="section">
+    <h5>Going</h5>
+    <div class="section__upper">
+        {% if going %}
+            <a href="{% url 'events:event going' event.id %}" class="btn waves-effect waves-light">
+                <i class="material-icons">check_circle</i>
+            </a>
+        {% else %}
+            <a href="{% if user.is_authenticated %}{% url 'events:event going' event.id %}{% endif %}"
+               class="btn waves-effect waves-light">
+                <i class="material-icons">help_outline</i>
+            </a>
+        {% endif %}
+        <span>{{ event.going_set.count }} going</span>
+    </div>
 </div>
