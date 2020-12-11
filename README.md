@@ -6,27 +6,35 @@
 ## Functionalities:
 
 * Anonymous users:
-    * can see event list on home page
-    * can see event detailed page
+    * can see event list on home page (paginated by 12 events)
+    * can see event details about the event
     * sign up
-    * sign in from event detail page will redirect back to same event page
-    * can see users profiles 
+    * sign in (redirected back to event detail page)
+    * can see other users profiles 
 
 * Logged in users
     * sign in and logout, change and reset password
-    * create profile (optional) or edit their profile
-    * can create, edit and delete their own events
-    * like events
-    * show interest in event or intention to go (one of them only, e.g. if you are interested and click going, interested is deleted, and vice versa)
+    * edit the default profile
+    * can create event
+    * can like others events 
+    * show interest in event or intention to go (one of them only) for others events
+    * comment others event and reply to a comment (can't comment own event)
+
+* Event hosts:
+    * can edit and delete their own events
+    * can not like, interested or go for own event
+    * can't comment but can reply to comments
 
 * Admin users:
+    * 'Admins' role is assigned to an user from the admin by superuser
     * sign in and logout
     * can create, edit and delete their own events
     * can see a list of events, created bu all users 
     * can edit and delete event of all users
-    * can create or edit their own profile
+    * can edit their default profile
     * can see a list of all profiles
     * can view or edit all user's profiles
+    * can't comment but can reply to comments
      
 ## External libraries, modules and resources used:
 

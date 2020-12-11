@@ -3,7 +3,13 @@
         {% csrf_token %}
         <div class="search__form">
             <div class="search__form-elements">
-                {{ search_form }}
+{#                {{ search_form }}#}
+
+                {{ search_form.text }}
+
+                {{ search_form.type }}
+
+                {{ search_form.city }}
             </div>
             <button><i class="material-icons">search</i></button>
         </div>

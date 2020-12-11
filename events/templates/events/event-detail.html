@@ -23,12 +23,15 @@
         </div>
     </div>
     <div class="event__content-container">
-        <div class="event__engagement{% if not user.is_authenticated %} show-sing-in-notification{% endif %}">
-            {% if not is_host %}
-                {% include 'events/partials/event-like.html' with event=event liked=liked %}
-                {% include 'events/partials/event-interested.html' with event=event interested=interested %}
-                {% include 'events/partials/event-going.html' with event=event going=going %}
+        {% if is_host %}
+                <p class="center-align">Since you are the host, you can not like, interest or go for your own event!</p>
             {% endif %}
+        <div class="event__engagement{% if not user.is_authenticated %} show-sing-in-notification{% endif %}">
+
+            {% include 'events/partials/event-like.html' with event=event liked=liked %}
+            {% include 'events/partials/event-interested.html' with event=event interested=interested %}
+            {% include 'events/partials/event-going.html' with event=event going=going %}
+
             <span class="event__sign-in-message">
                 <span>You need to be signed in to like, show interest or intention to go!</span>
                 <a class="btn" href="{% url 'signin' %}?next={{ request.path|urlencode }}">Sign in</a>
@@ -55,6 +58,8 @@
 
                         </span>
                     </a>
+                {% empty %}
+                    <p>No one going yet</p>
                 {% endfor %}
             </div>
             <div class="col s12 m4 event-info__right-content">

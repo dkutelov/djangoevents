@@ -1,18 +1,23 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect
 from django.views.generic.base import View
 
 from events.models import Event, Interested, Going, Like
 
 
-class EventEngage(LoginRequiredMixin, View):
+class EventEngage(LoginRequiredMixin, UserPassesTestMixin, View):
     login_url = '/accounts/signin/'
     event = None
+
+    def test_func(self):
+        event_id = self.kwargs['pk']
+        event = Event.objects.get(pk=event_id)
+        return event.hosted_by != self.request.user
 
     def get(self, request, pk):
         event = Event.objects.get(pk=pk)
 
-        if event.hosted_by.id == request.user.id:
+        if event.hosted_by.user.id == request.user.id:
             return redirect(f'/event/{pk}')
 
         self.event = event

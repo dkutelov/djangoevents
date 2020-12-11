@@ -15,27 +15,31 @@
 
      <div class="row">
         <div class="events__admin-card-container col s12">
-     <table class="highlight">
-        <thead>
-          <tr>
-              <th>Event</th>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Venue</th>
-              <th>City</th>
-              <th>Hosted by</th>
-              <th>Price</th>
-              <th>Liked</th>
-              <th>Edit</th>
-              <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for event in events %}
-            {% include 'events/partials/event-listing-card-admin.html' with event=event %}
-        {% endfor %}
-                </tbody>
-            </table>
+        {% if events %}
+         <table class="highlight">
+            <thead>
+              <tr>
+                  <th>Event</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Venue</th>
+                  <th>City</th>
+                  <th>Hosted by</th>
+                  <th>Price</th>
+                  <th>Liked</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for event in events %}
+                {% include 'events/partials/event-listing-card-admin.html' with event=event %}
+            {% endfor %}
+            </tbody>
+         </table>
+        {% else %}
+            <p>Sorry, no events to show.</p>
+        {% endif %}
         </div>
     </div>
 

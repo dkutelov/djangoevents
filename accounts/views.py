@@ -69,7 +69,6 @@ class UserProfileList(GroupRequiredMixin, ListView):
     model = Profile
     template_name = 'accounts/profiles.html'
     context_object_name = 'profiles'
-    paginate_by = 12
     groups = ['Admins']
 
 

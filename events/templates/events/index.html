@@ -31,6 +31,8 @@
                  {% include 'events/partials/event-listing-card.html' with event=event %}
                 </a>
             </div>
+       {% empty %}
+            <p>Sorry, no events to show.</p>
         {% endfor %}
     </div>
     <div class="pagination">
