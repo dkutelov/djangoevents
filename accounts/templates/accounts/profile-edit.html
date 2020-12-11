@@ -15,7 +15,7 @@
                         <h2 class="profile__table-title">Edit Your Profile</h2>
                         <a class="btn-link" href="{% url 'password_change' %}">Change your password</a>
                         {% include 'shared/partials/form-errors.html' %}
-                        <form action="{% url 'user-edit-profile' %}" method="POST" enctype="multipart/form-data" class="profile__form">
+                        <form method="POST" enctype="multipart/form-data" class="profile__form">
                             {% csrf_token %}
                             <img id="uploadedImage" class="profile__uploaded-image--update"/>
                             <div class="row">

@@ -49,8 +49,9 @@
 
                 <h4>People going</h4>
                 {% for going in event.going_set.all %}
-                    <a href="{% url 'user-profile' going.user.id %}">
-                        <span class="profile-photo-round " style="background-image: url('{{ going.user.profile.userPhotoURL.url }}')">
+                    <a href="{% url 'user-profile' going.user.profile.id %}">
+                        <span class="profile-photo-round "
+                              style="background-image: url('{{ going.user.profile.userPhotoURL.url }}')">
 
                         </span>
                     </a>

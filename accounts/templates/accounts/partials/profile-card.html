@@ -5,7 +5,7 @@
      <td>{{ profile.city }}</td>
      <td>{{ profile.user.event_set.count }}</td>
      <td>
-         <a href="{% url 'other-user-edit-profile' profile.id %}">
+         <a href="{% url 'user-edit-profile' profile.id %}">
              <i class="material-icons">edit</i>
          </a>
      </td>

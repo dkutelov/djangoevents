@@ -13,29 +13,31 @@
                     <h2 class="logo-small"><a href="{% url 'events:home' %}">UrbanBeat</a></h2>
                     <div class="col s10 offset-s1 m8 offset-m2">
                         <h2 class="profile__heading">Profile</h2>
-                        <img src="{{ user.profile.userPhotoURL.url }}" alt="{{ user.username }}"
+                        <img src="{{ profile.userPhotoURL.url }}" alt="{{ user.username }}"
                                     class="profile__user-photo">
                         <div class="profile__item row">
                             <span class="profile__item-title col s6">Username</span>
-                            <span class="col s6 left-align">{{ user.username }}</span>
+                            <span class="col s6 left-align">{{ profile.user.username }}</span>
                         </div>
                         <div class="profile__item row">
                             <span class="profile__item-title col s6">From</span>
-                            <span class="col s6 left-align">{{ user.profile.city }}</span>
+                            <span class="col s6 left-align">{{ profile.city }}</span>
                         </div>
                         <div class="profile__item row">
                             <span class="profile__item-title col s6">Info</span>
-                            <span class="col s6 left-align">{{ user.profile.about }}</span>
+                            <span class="col s6 left-align">{{ profile.about }}</span>
                         </div>
                          <div class="profile__item row">
                             <span class="profile__item-title col s6">Hosted events</span>
-                            <span class="col s6 left-align">{{ user.event_set.count }}</span>
+                            <span class="col s6 left-align">{{ profile.user.event_set.count }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="">
                     <a class="btn" href="{% url 'events:home' %}">Explore events</a>
-                    <a class="btn" href="{% url 'user-edit-profile' %}">Edit your profile</a>
+                    {% if user.id == profile.user_id %}
+                    <a class="btn" href="{% url 'user-edit-profile' user.profile.id %}">Edit your profile</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

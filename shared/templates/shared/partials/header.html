@@ -5,11 +5,11 @@
         <div class="header__nav">
             {% if user.is_authenticated %}
                 <ul id="dropdown-profile" class="dropdown-content">
-                    <li><a href="{% url 'user-profile' user.id %}">My profile</a></li>
+
                     <li class="divider"></li>
-                    {% if not user.profile %}
-                         <li><a href="{% url 'user-create-profile' %}">Create profile</a></li>
-                    {% endif %}
+                    <li>
+                        <a href="{% url 'user-profile' user.profile.id %}">My profile</a>
+                    </li>
                     {% if user.is_superuser or user|has_group:'Admins' %}
                        <li>
                            <a href="{% url 'events:events admin' %}">All events</a>
