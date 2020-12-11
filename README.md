@@ -6,7 +6,7 @@
 ## Functionalities:
 
 * Anonymous users:
-    * can see event list on home page (paginated by 12 events)
+    * can see event list on home page (paginated by 12 events), search event by name, filter events by city and type, sort by date
     * can see event details about the event
     * sign up
     * sign in (redirected back to event detail page)
