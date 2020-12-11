@@ -17,7 +17,7 @@ class EventEngage(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request, pk):
         event = Event.objects.get(pk=pk)
 
-        if event.hosted_by.user.id == request.user.id:
+        if event.hosted_by == request.user:
             return redirect(f'/event/{pk}')
 
         self.event = event

@@ -20,14 +20,14 @@ env = environ.Env()
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'django_events.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'events',
-        'USER': 'adminpostgres',
-        'PASSWORD': '123456',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.environ.get("Database"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("PASSWORD"),
+        'HOST': os.environ.get("HOST"),
+        'PORT': os.environ.get("PORT"),
     }
 }
 
@@ -118,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Cloudinary config
 cloudinary.config(
-  cloud_name=env('CLOUD_NAME'),
-  api_key=env('API_KEY'),
-  api_secret=env('API_SECRET'),
+  cloud_name=os.environ.get("CLOUD_NAME"),
+  api_key=os.environ.get('API_KEY'),
+  api_secret=os.environ.get('API_SECRET'),
   secure=True
 )
 # Internationalization
