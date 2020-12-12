@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://urbanbeat.herokuapp.com/']
 
 
 # Application definition
@@ -151,3 +151,4 @@ EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 STRIPE_PUBLIC_KEY = 'pk_test_vezy48MSKqOfsOuu38fjDI9v00xbmuqTP3'
 STRIPE_PRIVATE_KEY = os.environ.get("STRIPE_SECRET")
 
+# django_heroku.settings(locals())
