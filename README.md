@@ -10,7 +10,8 @@
     * can see event details about the event
     * sign up
     * sign in (redirected back to event detail page)
-    * can see other users profiles 
+    * can see other users profiles
+    * can buy ticket for an event
 
 * Logged in users
     * sign in and logout, change and reset password
@@ -38,10 +39,11 @@
      
 ## External libraries, modules and resources used:
 
-* customized Materialise CSS
+* CSS: customized MaterialiseCSS, custom CSS -  build based on image mock ups 
 * Cloudinary
 * Google maps
 * flatpickr for date input
+* Stripe
 * custom vanilla JS: same page position after page reload, hide/show reply to comment
 
 ## Design credit: 

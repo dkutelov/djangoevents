@@ -151,4 +151,4 @@ EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 STRIPE_PUBLIC_KEY = 'pk_test_vezy48MSKqOfsOuu38fjDI9v00xbmuqTP3'
 STRIPE_PRIVATE_KEY = os.environ.get("STRIPE_SECRET")
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
