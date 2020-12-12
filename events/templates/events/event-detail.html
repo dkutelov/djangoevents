@@ -21,6 +21,15 @@
                 <p>{{ event.venue_address }}</p>
             </div>
         </div>
+        <div class="event__image-content--right">
+            <h3>Date & Time</h3>
+            <p>{{ event.date|date:'d-M-yy h:m' }}</p>
+            {% if event.ticket_price > 0 %}
+                <a class="btn" href="{% url 'make payment' event.id %}">BUY TICKET</a>
+            {% else %}
+                <button class="btn">FREE</button>
+            {% endif %}
+        </div>
     </div>
     <div class="event__content-container">
         {% if is_host %}
@@ -93,6 +102,9 @@
 {% endblock %}
 {% load static %}
 {% block page_scripts %}
+    <script>
+        const ticketPrice = {{ event.ticket_price }};
+    </script>
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbBSz9ZdcjSHWP5g_2f6J3VnczJ1hz2ZY&callback=initMap">
     </script>

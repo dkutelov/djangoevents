@@ -1,0 +1,48 @@
+{% extends 'shared/base.html' %}
+
+{%  block site_title %}
+    Buy your ticket
+{% endblock %}
+
+{% block head_scripts %}
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block content %}
+<div class="profile__container">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="profile__container-inner" style="padding: 6em 3em;">
+               <h3>Pay your ticket</h3>
+                <p>You are buying a ticket for {{ event.name }}</p>
+                <p>On {{ event.date|date:'d-M-yy h:m' }}</p>
+                <p>Taking place in {{ event.venue }} / {{ event.city }} </p>
+                <p>The price of the ticket is {{ event.price }}</p>
+                <button class="btn" id="checkout-button">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+    <script type="text/javascript">
+    const stripe = Stripe('{{ stripe_public_key }}');
+    const checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+     stripe.redirectToCheckout(
+         {
+             sessionId: '{{ session_id }}'
+        })
+        .then(function (result) {
+          // If redirectToCheckout fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using error.message.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        });
+    });
+    </script>
+{% endblock %}

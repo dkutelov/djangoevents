@@ -19,3 +19,5 @@ class GroupRequiredMixin:
             raise PermissionDenied
 
         return super().dispatch(request, *args, **kwargs)
+
+

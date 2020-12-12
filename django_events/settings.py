@@ -13,11 +13,6 @@ import os
 from os.path import join
 from pathlib import Path
 import cloudinary
-import environ
-
-env = environ.Env()
-# reading .env file
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +44,7 @@ INSTALLED_APPS = [
     'comments',
     'shared',
     'cloudinary',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +146,8 @@ LOGIN_URL = '/accounts/signin/'
 #log emails to console
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
+
+#stripe config
+STRIPE_PUBLIC_KEY = 'pk_test_vezy48MSKqOfsOuu38fjDI9v00xbmuqTP3'
+STRIPE_PRIVATE_KEY = os.environ.get("STRIPE_SECRET")
+
