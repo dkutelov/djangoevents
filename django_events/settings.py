@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
-
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'v9$v+-f)i)2&%p+vw)qa2b(p)rdaa0k1aj=8+!%gzxh&z%uod*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -151,4 +151,4 @@ EMAIL_FILE_PATH = str(BASE_DIR.joinpath('sent_emails'))
 STRIPE_PUBLIC_KEY = 'pk_test_vezy48MSKqOfsOuu38fjDI9v00xbmuqTP3'
 STRIPE_PRIVATE_KEY = os.environ.get("STRIPE_SECRET")
 
-# django_heroku.settings(locals())
+#django_heroku.settings(locals())

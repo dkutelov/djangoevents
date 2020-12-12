@@ -8822,6 +8822,21 @@ footer .footer__copy-line p {
 .event__image-content--left .location p {
   color: #cccccc;
 }
+.event__image-content--right {
+  background-color: white;
+  position: absolute;
+  top: 32%;
+  border-radius: 10px;
+  padding: 3em 3em 4em 3em;
+  right: 5em;
+  text-align: center;
+}
+.event__image-content--right h3 {
+  font-size: 2em;
+}
+.event__image-content--right p {
+  color: #505058;
+}
 .event__engagement {
   display: flex;
   justify-content: center;
