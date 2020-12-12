@@ -49,3 +49,6 @@
 ## Design credit: 
 
 [Behance - Kevin Wijaya](https://www.behance.net/gallery/87681559/Event-Landing-Page)
+
+## Deployed to Heroku
+[UrbanBeat](https://urbanbeat.herokuapp.com/)
