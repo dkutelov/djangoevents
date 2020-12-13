@@ -8128,7 +8128,7 @@ body {
 .form__label {
   position: relative !important;
   text-align: left !important;
-  margin-bottom: 0 !important;
+  margin-bottom: 0.5em;
   width: 100%;
   display: block;
 }
