@@ -12,12 +12,13 @@ from events.models import Event
 def payment(request, pk):
     stripe.api_key = settings.STRIPE_PRIVATE_KEY
     event = Event.objects.get(pk=pk)
+    quantity = event.ticket_price
 
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
-            'price': 'price_1HxZtvAFQOjrfmLHzifQv42H',
-            'quantity': 1
+            'price': 'price_1HxpVWAFQOjrfmLHg2KONPYK',
+            'quantity': quantity
         }],
         mode='payment',
         success_url=request.build_absolute_uri(reverse('thanks')) + '?session_id={CHECKOUT_SESSION_ID}',

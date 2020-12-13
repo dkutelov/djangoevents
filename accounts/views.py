@@ -26,8 +26,6 @@ class SignUp(CreateView):
     def form_valid(self, form):
         valid = super().form_valid(form)
         user = form.save()
-        user.set_password(user.password)
-        user.save()
         login(self.request, user)
         return valid
 
