@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="">
+                <div style="margin: 2em;">
                     <a class="btn" href="{% url 'events:home' %}">Explore events</a>
                     {% if user.id == profile.user_id %}
                     <a class="btn" href="{% url 'user-edit-profile' user.profile.id %}">Edit your profile</a>
