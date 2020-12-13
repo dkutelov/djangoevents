@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import SignUp, SignIn, ProfileDetail, ProfileEditView, UserProfileList
+from .views import SignUp, SignIn, ProfileDetail, ProfileEditView, UserProfileList, ProfileCreateView
 from .receivers import *
 
 urlpatterns = [
@@ -9,5 +9,6 @@ urlpatterns = [
     path('signin/', SignIn.as_view(), name='signin'),
     path('signup/', SignUp.as_view(), name='signup'),
     path('user-list/', UserProfileList.as_view(), name='user list'),
+    path('profile/create/', ProfileCreateView.as_view(), name='user-create-profile'),
 ]
 

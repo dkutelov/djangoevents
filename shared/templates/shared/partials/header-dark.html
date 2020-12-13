@@ -1,7 +1,11 @@
 {% load has_group %}
 <!-- Dropdown Structure -->
 <ul id="dropdown-profile" class="dropdown-content">
-    <li><a href="{% url 'user-edit-profile' user.profile.id %}">My profile</a></li>
+    {% if user.profile %}
+        <a href="{% url 'user-profile' user.profile.id %}">My profile</a>
+    {% else %}
+        <a href="{% url 'user-create-profile' %}">Create profile</a>
+    {% endif %}
     <li class="divider"></li>
     {% if user.is_superuser or user|has_group:'Admins' %}
        <li>

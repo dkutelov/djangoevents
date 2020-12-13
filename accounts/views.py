@@ -72,3 +72,15 @@ class UserProfileList(GroupRequiredMixin, ListView):
     groups = ['Admins']
 
 
+class ProfileCreateView(LoginRequiredMixin, CreateView):
+    model = Profile
+    template_name = 'accounts/profile-create.html'
+    form_class = UserProfileForm
+    success_url = reverse_lazy('events:home')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return f'/accounts/profile/{self.request.user.id}'

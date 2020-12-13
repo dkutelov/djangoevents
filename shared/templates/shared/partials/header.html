@@ -8,7 +8,11 @@
 
                     <li class="divider"></li>
                     <li>
-                        <a href="{% url 'user-profile' user.profile.id %}">My profile</a>
+                        {% if user.profile %}
+                            <a href="{% url 'user-profile' user.profile.id %}">My profile</a>
+                        {% else %}
+                            <a href="{% url 'user-create-profile' %}">Create profile</a>
+                        {% endif %}
                     </li>
                     {% if user.is_superuser or user|has_group:'Admins' %}
                        <li>
