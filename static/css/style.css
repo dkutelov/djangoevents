@@ -8504,7 +8504,7 @@ footer .footer__copy-line p {
 }
 
 .banner__container {
-  width: 90%;
+  width: 85%;
   border-radius: 7.5px;
   padding-top: 43%;
   margin: 0 auto;
@@ -8518,8 +8518,8 @@ footer .footer__copy-line p {
   left: 60%;
   top: 30%;
   color: white;
-  width: 35%;
-  font-size: 4.5rem;
+  width: 32%;
+  font-size: 4rem;
   font-weight: bold;
   text-transform: uppercase;
   line-height: 1;
