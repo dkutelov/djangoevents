@@ -15,7 +15,7 @@ class EventListView(ListView):
     contains_text = ''
     event_city_filter = None
     event_type_filter = None
-    paginate_by = 12
+    paginate_by = 9
     current_date = timezone.now()
 
     def dispatch(self, request, *args, **kwargs):
